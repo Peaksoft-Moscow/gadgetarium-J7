@@ -1,0 +1,1 @@
+![create_diagram](/Users/bakytzamalzorobekova/Downloads/GagetDiagram.drawio (1).png)
