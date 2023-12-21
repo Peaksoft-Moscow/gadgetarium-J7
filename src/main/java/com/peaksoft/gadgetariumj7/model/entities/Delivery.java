@@ -1,0 +1,37 @@
+package com.peaksoft.gadgetariumj7.model.entities;
+
+import com.peaksoft.gadgetariumj7.model.enums.DeliveryStatus;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "baskets")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Delivery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    DeliveryStatus deliveryStatus;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "delivery_products",
+            joinColumns = @JoinColumn(name = "delivery_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    List<Product> products;
+
+    @OneToOne
+    OrderHistory orderHistory;
+
+    LocalDate orderTime;
+}
