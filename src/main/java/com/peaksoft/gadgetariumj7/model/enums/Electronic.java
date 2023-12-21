@@ -7,5 +7,4 @@ public enum Electronic {
     SMART_WATCHES,
     BRACELETS,
     ACCESSORIES
-
 }

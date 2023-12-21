@@ -43,4 +43,3 @@ public class User {
     @OneToMany (mappedBy = "user")
     List<OrderHistory> orderHistories;
 }
-

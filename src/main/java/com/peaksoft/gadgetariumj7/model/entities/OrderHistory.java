@@ -41,6 +41,4 @@ public class OrderHistory {
     User user;
 
     LocalDate orderTime;
-
-
 }

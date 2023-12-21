@@ -30,7 +30,4 @@ public class Payment {
     int yearDate;
 
     String userName;
-
-
-
 }

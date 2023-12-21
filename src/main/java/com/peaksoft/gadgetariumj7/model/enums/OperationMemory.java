@@ -9,4 +9,3 @@ public enum OperationMemory {
     GB_16
 
 }
-

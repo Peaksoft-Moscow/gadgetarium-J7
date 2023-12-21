@@ -52,7 +52,4 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_history_id"))
     List<OrderHistory> orderHistories;
-
-
-
 }

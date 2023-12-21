@@ -34,6 +34,4 @@ public class Delivery {
     OrderHistory orderHistory;
 
     LocalDate orderTime;
-
-
 }
