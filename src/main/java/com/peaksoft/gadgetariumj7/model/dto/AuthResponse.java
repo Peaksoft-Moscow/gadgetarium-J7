@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @Builder
@@ -16,7 +14,7 @@ public class AuthResponse {
     Long id;
     String name;
     String lastName;
-    String phoneNumber;
     String email;
-    LocalDate createDate;
+    String phoneNumber;
+
 }

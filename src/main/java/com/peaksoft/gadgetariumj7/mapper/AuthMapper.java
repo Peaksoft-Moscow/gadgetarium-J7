@@ -1,5 +1,5 @@
 package com.peaksoft.gadgetariumj7.mapper;
-import com.peaksoft.gadgetariumj7.model.entityes.User;
+import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import org.springframework.stereotype.Component;

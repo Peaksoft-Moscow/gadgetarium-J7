@@ -19,12 +19,11 @@ import java.util.List;
 @Table(name = "orders")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String image;
-
     String address;
 
     @OneToOne
@@ -43,9 +42,7 @@ public class Order {
     List<Product>  products;
 
     Double amount;
-
     DeliveryType deliveryType;
-
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "order_order_histories",

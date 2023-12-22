@@ -1,6 +1,4 @@
 package com.peaksoft.gadgetariumj7.model.entities;
-
-import com.peaksoft.gadgetariumj7.model.entities.Order;
 import com.peaksoft.gadgetariumj7.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -14,27 +12,26 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
-
     String name;
-
+    @Column(name = "last_Name")
     String lastName;
-
+    @Column(unique = true)
     String email;
-
+    @Column(name = "phone_number")
     String phoneNumber;
-
     String password;
-
     Role role;
-
+    @Column(name = "create_date")
     LocalDate createDate;
 
     @OneToMany (mappedBy = "user")

@@ -18,46 +18,28 @@ import java.util.List;
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String productName;
-
     Electronic catalog;
-
     ProductStatus productStatus;
-
     Category category;
-
     Memory memory;
-
     Color color;
-
     OperationMemory operationMemory;
-
     String screen;
-
     OperationSystem operationSystem;
-
     String operationSystemNum;
-
     String dateOfRelease;
-
     String simCard;
-
     String processor;
-
     int weight;
-
     String guarantee;
-
     String rating;
-
     int discount;
-
     int price;
-
     LocalDate createDate;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")

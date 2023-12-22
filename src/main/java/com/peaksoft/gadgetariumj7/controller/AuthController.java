@@ -6,25 +6,22 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.peaksoft.gadgetariumj7.service.UserService;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthController {
 
-    final UserService userService;
+    UserService userService;
+
     @PostMapping("/sign-up")
-    public AuthResponse signUp(@RequestBody @Valid AuthRequest request,
-                               BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return userService.save(request);
-        return userService.save(request);
+    public ResponseEntity<AuthResponse> signUp(@RequestBody @Valid AuthRequest request) {
+        AuthResponse response = userService.save(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

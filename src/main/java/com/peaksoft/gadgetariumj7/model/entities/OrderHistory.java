@@ -19,6 +19,7 @@ import java.util.Locale;
 @Table(name = "delivery_histories")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderHistory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
