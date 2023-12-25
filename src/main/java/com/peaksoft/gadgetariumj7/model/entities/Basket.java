@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "baskets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
