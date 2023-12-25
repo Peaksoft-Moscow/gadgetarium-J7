@@ -29,10 +29,8 @@ public class User {
     String email;
     String phoneNumber;
     String password;
-    String userPic;
     String gender;
     String local;
-    LocalDateTime lastVisit;
     Role role;
     LocalDate createDate;
 
