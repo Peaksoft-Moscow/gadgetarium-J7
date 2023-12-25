@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class AuthWithGoogleRequest {
-    private String id;
+    private Long id;
     private String name;
     private String userPic;
     private String email;
