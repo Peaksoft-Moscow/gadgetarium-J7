@@ -27,8 +27,9 @@ public class AuthController {
         AuthResponse response = authService.save(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
     @GetMapping("/with-google")
-    public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken)  {
+    public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return authService.saveWithGoogle(oAuth2AuthenticationToken);
     }
 }

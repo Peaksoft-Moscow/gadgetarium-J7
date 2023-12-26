@@ -23,8 +23,9 @@ import java.util.Map;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthService {
+
      UserRepository userRepository;
-    AuthMapper authMapper;
+     AuthMapper authMapper;
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
