@@ -34,4 +34,5 @@ public class AuthRequest {
     @Size(min = 6, max = 20, message = "password must be between 6 and 20 characters!")
     String password;
     String Confirm_the_password;
+
 }
