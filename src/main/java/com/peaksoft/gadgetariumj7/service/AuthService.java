@@ -1,4 +1,4 @@
-package com.peaksoft.gadgetariumj7.model.service;
+package com.peaksoft.gadgetariumj7.service;
 
 import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.model.enums.Role;
