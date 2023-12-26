@@ -32,4 +32,5 @@ public class AuthController {
     public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return authService.saveWithGoogle(oAuth2AuthenticationToken);
     }
+
 }
