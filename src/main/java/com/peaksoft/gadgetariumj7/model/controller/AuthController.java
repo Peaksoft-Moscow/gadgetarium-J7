@@ -13,14 +13,8 @@ import java.util.Map;
 public class AuthController {
     private final AuthService authService;
 
-    @GetMapping("/")
-    public Map<String, Object> currentUser(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-
-        return oAuth2AuthenticationToken.getPrincipal().getAttributes();
-    }
-
     @GetMapping("/with-google")
-    public Map<String, Object> addUser(OAuth2AuthenticationToken oAuth2AuthenticationToken) throws IllegalAccessException {
+    public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) throws IllegalAccessException {
         return authService.saveWithGoogle(oAuth2AuthenticationToken);
     }
 }
