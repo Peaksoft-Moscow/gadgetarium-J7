@@ -32,6 +32,9 @@ public class User {
     String phoneNumber;
     String password;
     String Confirm_the_password;
+    String gender;
+    String local;
+    @Enumerated(EnumType.STRING)
     Role role;
     @Column(name = "create_date")
     LocalDate createDate;
@@ -41,4 +44,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
+
 }
