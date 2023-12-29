@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
@@ -33,6 +32,7 @@ public class User {
     String password;
     String Confirm_the_password;
     Role role;
+    boolean sent;
     @Column(name = "create_date")
     LocalDate createDate;
 
