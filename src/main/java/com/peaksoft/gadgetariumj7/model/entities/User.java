@@ -23,19 +23,27 @@ public class User {
     Long id;
 
     String name;
+
     @Column(name = "last_Name")
     String lastName;
+
     @Column(unique = true)
     String email;
+
     @Column(name = "phone_number")
     String phoneNumber;
 
     String password;
+
     String Confirm_the_password;
+
     String gender;
+
     String local;
+
     @Enumerated(EnumType.STRING)
     Role role;
+
     @Column(name = "create_date")
     LocalDate createDate;
 
