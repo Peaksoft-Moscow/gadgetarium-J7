@@ -46,6 +46,7 @@ public class Order {
 
     Double amount;
 
+
     DeliveryType deliveryType;
 
 
