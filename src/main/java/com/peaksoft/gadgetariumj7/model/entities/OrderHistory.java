@@ -29,7 +29,7 @@ public class OrderHistory {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderHistory")
     Delivery delivery;
 
     DeliveryStatus deliveryStatus;
@@ -37,7 +37,10 @@ public class OrderHistory {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "orderHistories")
     List<Order> orders;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = {
+            CascadeType.MERGE , CascadeType.DETACH , CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
     User user;
 
     LocalDate orderTime;

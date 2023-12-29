@@ -24,10 +24,9 @@ public class Product {
 
     String productName;
 
-    Electronic catalog;
-
     ProductStatus productStatus;
 
+    @OneToOne( mappedBy = "product")
     Category category;
 
     Memory memory;
@@ -76,4 +75,10 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
+
+
+    @ManyToOne(cascade = {
+            CascadeType.ALL})
+    @JoinColumn(name = "brand_id")
+    Brand brandOfProduct;
 }

@@ -30,4 +30,7 @@ public class Payment {
     int yearDate;
 
     String userName;
+
+    @OneToOne (mappedBy = "payment")
+    Order order;
 }

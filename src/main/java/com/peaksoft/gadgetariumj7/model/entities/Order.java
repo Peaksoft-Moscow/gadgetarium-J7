@@ -27,7 +27,9 @@ public class Order {
 
     String address;
 
-    @OneToOne
+    @OneToOne(cascade = {
+            CascadeType.MERGE , CascadeType.REFRESH , CascadeType.PERSIST , CascadeType.DETACH})
+    @JoinColumn(name = "payment_id")
     Payment payment;
 
     PaymentType paymentType;

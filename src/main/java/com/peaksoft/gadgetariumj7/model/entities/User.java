@@ -40,6 +40,7 @@ public class User {
     @OneToMany (mappedBy = "user")
     List <Order> orders;
 
-    @OneToMany (mappedBy = "user")
+
+    @OneToMany( mappedBy = "user")
     List<OrderHistory> orderHistories;
 }
