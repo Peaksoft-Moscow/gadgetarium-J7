@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "favorites")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Favorites {
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;

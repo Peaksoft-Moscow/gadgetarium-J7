@@ -1,6 +1,5 @@
 package com.peaksoft.gadgetariumj7.model.entities;
 
-import com.peaksoft.gadgetariumj7.model.entities.Order;
 import com.peaksoft.gadgetariumj7.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -24,23 +23,25 @@ public class User {
     Long id;
 
     String name;
-
+    @Column(name = "last_Name")
     String lastName;
-
+    @Column(unique = true)
     String email;
-
+    @Column(name = "phone_number")
     String phoneNumber;
 
     String password;
-
+    String Confirm_the_password;
+    String gender;
+    String local;
+    @Enumerated(EnumType.STRING)
     Role role;
-
+    @Column(name = "create_date")
     LocalDate createDate;
 
     @OneToMany (mappedBy = "user")
     List <Order> orders;
 
-
-    @OneToMany( mappedBy = "user")
+    @OneToMany (mappedBy = "user")
     List<OrderHistory> orderHistories;
 }

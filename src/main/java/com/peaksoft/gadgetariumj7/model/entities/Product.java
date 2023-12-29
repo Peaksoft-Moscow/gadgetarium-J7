@@ -68,14 +68,11 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Order> orders;
 
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<OrderHistory> orderHistories;
 
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
-
 
     @ManyToOne(cascade = {
             CascadeType.ALL})

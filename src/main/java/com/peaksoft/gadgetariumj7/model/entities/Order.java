@@ -46,9 +46,7 @@ public class Order {
 
     Double amount;
 
-
     DeliveryType deliveryType;
-
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "order_order_histories",
