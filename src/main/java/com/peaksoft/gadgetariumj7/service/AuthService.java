@@ -55,7 +55,7 @@ public class AuthService {
         return authMapper.mapToUserResponse(user);
     }
 
-    public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken)  {
         OAuth2AuthenticatedPrincipal principal = oAuth2AuthenticationToken.getPrincipal();
         if (oAuth2AuthenticationToken == null) {
             throw new IllegalArgumentException("The token must not be null");
