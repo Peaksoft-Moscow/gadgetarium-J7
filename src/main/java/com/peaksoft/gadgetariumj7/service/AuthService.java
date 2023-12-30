@@ -68,6 +68,7 @@ public class AuthService {
         response.put("creatDate", user.getCreateDate());
         return response;
     }
+
     public LoginResponse login(LoginRequest request) {
         manager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Not found"));
