@@ -20,6 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+
 @Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
@@ -47,6 +48,9 @@ public class User implements UserDetails {
 
     String local;
 
+    Long resetCode;
+
+    Long confirmPassword;
     @Enumerated(EnumType.STRING)
     Role role;
 
