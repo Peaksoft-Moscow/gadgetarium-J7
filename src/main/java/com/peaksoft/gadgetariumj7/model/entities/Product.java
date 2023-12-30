@@ -1,6 +1,7 @@
 package com.peaksoft.gadgetariumj7.model.entities;
 
 import com.peaksoft.gadgetariumj7.model.enums.*;
+import com.peaksoft.gadgetariumj7.model.enums.Brand;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,13 +35,23 @@ public class Product {
     String operationSystemNum;
     String dateOfRelease;
     String simCard;
+    String characteristic;
+    String currentPrice;
+    String quantity;
+     Electronic electronic;
+    String feedback;
+    int quantityOfSIMCards;
+    int article;
+    String description;
     String processor;
     int weight;
     String guarantee;
     String rating;
     int discount;
     int price;
+    Brand brand;
     LocalDate createDate;
+
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Basket> baskets;
@@ -58,4 +69,5 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
+
 }
