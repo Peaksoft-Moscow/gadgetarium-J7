@@ -34,6 +34,8 @@ public class User {
     String Confirm_the_password;
     String gender;
     String local;
+    Long resetCode;
+    Long confirmPassword;
     @Enumerated(EnumType.STRING)
     Role role;
     @Column(name = "create_date")
