@@ -22,6 +22,8 @@ import java.util.List;
 @Entity
 
 @Table(name = "users")
+
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
 

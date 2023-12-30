@@ -18,6 +18,10 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +42,9 @@ public class AuthService {
 
     UserRepository userRepository;
     AuthMapper authMapper;
+    JavaMailSender javaMailSender;
+    UserRepository userRepository;
+    AuthMapper authMapper;
     AuthenticationManager manager;
     JwtUtil jwtUtil;
     LoginMapper loginMapper;
@@ -51,6 +58,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
+        System.out.println(user);
         return authMapper.mapToUserResponse(user);
     }
 
