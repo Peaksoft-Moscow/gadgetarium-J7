@@ -13,10 +13,9 @@ import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 
 @RestController
@@ -34,9 +33,23 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("/with-google")
-    public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        return authService.saveWithGoogle(oAuth2AuthenticationToken);
+//    @GetMapping("/with-google")
+//    public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+//        return authService.saveWithGoogle(oAuth2AuthenticationToken);
+//    }
+
+    @PutMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        User user = userRepository.findByEmail(email);
+        userRepository.save(user);
+        return new ResponseEntity<>(authService.forgotPassword(email), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/set-password")
+    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword, @RequestHeader String confirmPassword) {
+        User user = userRepository.findByEmail(email);
+        userRepository.save(user);
+        return new ResponseEntity<>(authService.setPassword(email, newPassword, confirmPassword), HttpStatus.CREATED);
     }
 
 
