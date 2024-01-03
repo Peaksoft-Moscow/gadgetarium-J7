@@ -15,7 +15,6 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "payments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Payment {
-
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
