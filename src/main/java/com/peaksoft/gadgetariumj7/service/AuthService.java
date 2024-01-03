@@ -25,6 +25,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -49,8 +51,8 @@ public class AuthService {
         user.setCreateDate(LocalDate.now());
         log.info("User is created");
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
         userRepository.save(user);
+        System.out.println(user);
         return authMapper.mapToUserResponse(user);
     }
 
@@ -90,7 +92,6 @@ public class AuthService {
         javaMailSender.send(mimeMessage);
     }
 
-
     public String forgotPassword(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
         Random random = new Random();
@@ -102,9 +103,7 @@ public class AuthService {
         } catch (MessagingException e) {
             throw new RuntimeException("User not found with this email : " + email);
         }
-
         return "Please check your email to set new password to your account";
-
     }
 
     public String setPassword(String email, String newPassword, String confirmPassword) {
