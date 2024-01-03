@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.service;
 
+import com.peaksoft.gadgetariumj7.model.enums.Role;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -17,14 +18,16 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-//import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Service
@@ -33,14 +36,12 @@ import java.util.Random;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthService {
 
-     UserRepository userRepository;
-     AuthMapper authMapper;
-     AuthenticationManager manager;
-     JwtUtil jwtUtil;
-     LoginMapper loginMapper;
-     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     AuthMapper authMapper;
+    AuthenticationManager manager;
+    JwtUtil jwtUtil;
+    LoginMapper loginMapper;
+    PasswordEncoder passwordEncoder;
     JavaMailSender javaMailSender;
 
     public AuthResponse save(AuthRequest request) {
@@ -48,11 +49,12 @@ public class AuthService {
         user.setCreateDate(LocalDate.now());
         log.info("User is created");
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
         userRepository.save(user);
         return authMapper.mapToUserResponse(user);
     }
 
-    public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken)  {
+    public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         OAuth2AuthenticatedPrincipal principal = oAuth2AuthenticationToken.getPrincipal();
         if (oAuth2AuthenticationToken == null) {
             throw new IllegalArgumentException("The token must not be null");
@@ -62,33 +64,21 @@ public class AuthService {
         user.setName((String) attributes.get("given_name"));
         user.setLastName((String) attributes.get("family_name"));
         user.setEmail((String) attributes.get("email"));
-        user.setPassword(passwordEncoder.encode(user.getPassword())); attributes.get("given_name");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        attributes.get("given_name");
         user.setCreateDate(LocalDate.now());
         user.setRole(Role.USER);
-//    public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-//        OAuth2AuthenticatedPrincipal principal = oAuth2AuthenticationToken.getPrincipal();
-//        if (oAuth2AuthenticationToken == null) {
-//            throw new IllegalArgumentException("The token must not be null");
-//        }
-//        Map<String, Object> attributes = principal.getAttributes();
-//        User user = new User();
-//        user.setName((String) attributes.get("given_name"));
-//        user.setLastName((String) attributes.get("family_name"));
-//        user.setEmail((String) attributes.get("email"));
-//        user.setPassword((String) attributes.get("given_name"));
-//        user.setCreateDate(LocalDate.now());
-//        user.setRole(Role.USER);
-//        userRepository.save(user);
-//        Map<String, Object> response = new LinkedHashMap<>();
-//        response.put("name", user.getName());
-//        response.put("lastName", user.getLastName());
-//        response.put("email", user.getEmail());
-//        response.put("creatDate", user.getCreateDate());
-//        return response;
-//    }
+        userRepository.save(user);
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("name", user.getName());
+        response.put("lastName", user.getLastName());
+        response.put("email", user.getEmail());
+        response.put("creatDate", user.getCreateDate());
+        return response;
+    }
 
     public void sendSetPasswordEmail(String email) throws MessagingException {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
 
         String strCode = String.valueOf(user.getResetCode());
         userRepository.save(user);
@@ -102,7 +92,7 @@ public class AuthService {
 
 
     public String forgotPassword(String email) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
         Random random = new Random();
         Long resetCod = random.nextLong(10000000);
         user.setResetCode(resetCod);
@@ -118,12 +108,12 @@ public class AuthService {
     }
 
     public String setPassword(String email, String newPassword, String confirmPassword) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
         String strCode = String.valueOf(user.getResetCode());
         if (strCode.equals(newPassword) && strCode.equals(confirmPassword)) {
-            user.setPassword(newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
         }
-
         userRepository.save(user);
         return "New password set successfully login with this password";
     }
@@ -132,7 +122,7 @@ public class AuthService {
         manager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Not found"));
         String jwt = jwtUtil.generateToken(user);
-        return loginMapper.mapToResponse(jwt,user);
+        return loginMapper.mapToResponse(jwt, user);
     }
 }
 
