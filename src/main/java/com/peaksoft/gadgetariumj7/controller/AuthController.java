@@ -1,5 +1,7 @@
 package com.peaksoft.gadgetariumj7.controller;
 
+import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
+import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
 import com.peaksoft.gadgetariumj7.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -31,6 +33,11 @@ public class AuthController {
     @GetMapping("/with-google")
     public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return authService.saveWithGoogle(oAuth2AuthenticationToken);
+    }
+
+    @PostMapping("/sign-in")
+    public LoginResponse login(@RequestBody LoginRequest request){
+        return authService.login(request);
     }
 
 }
