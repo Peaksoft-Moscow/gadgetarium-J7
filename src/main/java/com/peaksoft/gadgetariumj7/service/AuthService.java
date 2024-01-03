@@ -115,6 +115,7 @@ public class AuthService {
         if (strCode.equals(newPassword) && strCode.equals(confirmPassword)) {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
+
         userRepository.save(user);
         return "New password set successfully login with this password";
     }
