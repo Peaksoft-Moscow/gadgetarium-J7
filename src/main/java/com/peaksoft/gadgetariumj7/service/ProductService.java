@@ -36,8 +36,6 @@ public class ProductService {
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }
-
-
     public List<ProductResponse> getAllProducts(){
         List<ProductResponse> productResponses = new ArrayList<>();
         for(Product product : productRepository.findAll()) {
@@ -45,8 +43,6 @@ public class ProductService {
         }
         return productResponses;
     }
-
-
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
@@ -73,7 +69,6 @@ public class ProductService {
         product.setCategory(request.getCategory());
         productRepository.save(product);
         return productMapper.mapToResponse(product);
-
     }
 
     public void deleteProductById(Long id){
@@ -83,6 +78,4 @@ public class ProductService {
         productRepository.deleteById(id);
         log.info("Deleted");
     }
-
-
 }

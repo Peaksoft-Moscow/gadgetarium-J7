@@ -1,11 +1,9 @@
 package com.peaksoft.gadgetariumj7.model.dto;
-
 import com.peaksoft.gadgetariumj7.model.enums.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-
 import java.time.LocalDate;
 @Getter
 @Setter
@@ -42,7 +40,4 @@ public class ProductRequest {
     private String genre;
     private String wirelessInterface;
     private String formsOfCorpus;
-
-
-
 }
