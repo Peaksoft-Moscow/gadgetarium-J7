@@ -21,7 +21,6 @@ public class AuthMapper {
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
         user.setRole(Role.USER);
-        user.setSent(request.isSent());
         return user;
     }
 
@@ -32,7 +31,6 @@ public class AuthMapper {
                 .lastName(user.getLastName())
                 .phoneNumber(user.getPhoneNumber())
                 .email(user.getEmail())
-                .sent(user.isSent())
                 .build();
     }
 }

@@ -32,10 +32,9 @@ public class User {
     String password;
     String Confirm_the_password;
     Role role;
-    boolean sent;
     @Column(name = "create_date")
     LocalDate createDate;
-
+    boolean subscribeToTheNewsletter;
     @OneToMany(mappedBy = "user")
     List<Order> orders;
 

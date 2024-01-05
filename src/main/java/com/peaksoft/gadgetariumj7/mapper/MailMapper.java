@@ -8,18 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailMapper {
 
-    public Email mapToEntity(MailRequest request){
+    public Email mapToEntity(MailRequest request) {
         Email email = new Email();
         email.setEmail(request.getSender());
         email.setMassage(request.getMassage());
+        email.setSent(request.isSent());
         return email;
     }
 
-    public MailResponse mapToMailResponse(Email email){
+    public MailResponse mapToMailResponse(Email email) {
         return MailResponse.builder()
                 .id(email.getId())
                 .sender(email.getEmail())
                 .massage(email.getMassage())
+                .sent(email.isSent())
                 .build();
     }
 }

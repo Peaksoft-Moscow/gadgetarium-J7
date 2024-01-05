@@ -20,4 +20,5 @@ public class Email {
     Long id;
     String email;
     String massage;
+    boolean sent;
 }

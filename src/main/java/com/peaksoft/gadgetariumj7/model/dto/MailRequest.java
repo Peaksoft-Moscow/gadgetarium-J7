@@ -12,5 +12,6 @@ public class MailRequest {
 
     String sender;
     String massage;
-
+    String email;
+    boolean sent;
 }
