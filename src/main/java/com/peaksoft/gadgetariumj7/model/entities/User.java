@@ -25,7 +25,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;
@@ -53,21 +53,16 @@ public class User implements UserDetails {
     @Column(name = "create_date")
     LocalDate createDate;
 
-    @OneToMany (mappedBy = "user")
-    List <Order> orders;
+    @OneToMany(mappedBy = "user")
+    List<Order> orders;
 
-    @OneToMany (mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        Role[] roles = new Role[]{};
-        for (Role role1 : roles) {
-            if (role1 == null) {
-                authorities.add(new SimpleGrantedAuthority(role1.getAuthority()));
-            }
-        }
+        authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         return authorities;
     }
 

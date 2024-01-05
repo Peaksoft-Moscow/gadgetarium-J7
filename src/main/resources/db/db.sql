@@ -1,15 +1,13 @@
 insert into users (create_date, confirm_the_password, email, gender, last_name, local, password, name, phone_number,
                    role)
 values ('04-01-2024', '$2a$12$tjLAEM0FrP9ZKJ/PDzkTbu3P/CPcpQ.gAUKeNE83bbiH6JqBY0ERi
-', 'admin@gmail.com', 'FEMALE', 'Adminova', '-', '$2a$12$tjLAEM0FrP9ZKJ/PDzkTbu3P/CPcpQ.gAUKeNE83bbiH6JqBY0ERi
-', 'Adminka', '+7389683423', 'ADMIN'),
+', 'admin@gmail.com', 'FEMALE', 'Adminova', '-', '$2a$12$u29zXBDzsP7pF2TmxWYNSOuSoxmBv/Q.MKGNbTNEuWlEjJ9oZHRWi', 'Adminka', '+7389683423', 'ADMIN'),
 
        ('04-01-2024', '$2a$12$EPCPGh7S3lXbDl6Zv1biuuWw7.G0CgdMnJkOOlUGJiBNInpV4NTIS
-', 'user1@gmail.com', 'FEMALE', 'Userova', '-', '$2a$12$EPCPGh7S3lXbDl6Zv1biuuWw7.G0CgdMnJkOOlUGJiBNInpV4NTIS
-', 'Userka', '+7834932112', 'USER'),
+', 'user1@gmail.com', 'FEMALE', 'Userova', '-', '$2a$12$Qam2MQ9SQgdyyizYFnaNFexiOuG/8rMM0KP9FfzMR0.QN7tn0LQ6S', 'Userka', '+7834932112', 'USER'),
 
        ('04-01-2024', '$2a$12$ZeI6kBEqBgnRCrKhkUd9GuTu8/GiWErUkkyBWxpuEKV4NuYHUGkSC',
-        'user2@gmail.com', 'MALE', 'Userov', '-', '$2a$12$ZeI6kBEqBgnRCrKhkUd9GuTu8/GiWErUkkyBWxpuEKV4NuYHUGkSC',
+        'user2@gmail.com', 'MALE', 'Userov', '-', '$2a$12$MbNpxIbvv0.rQK/HaDS1h.zichIBIt73H4tqLyQhiJWg3gcouIT1O',
         'User', '+7984342034', 'USER');
 
 insert into categories (electronic_type)
