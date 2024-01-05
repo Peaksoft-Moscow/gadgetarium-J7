@@ -64,7 +64,6 @@ values ('Apple'),
        ('Huawei'),
        ('Microsoft');
 
-
 insert into products ( create_date, discount, price, weight, brand_id, color, date_of_release, guarantee, memory,
                       operation_memory, operation_system,
                       operation_system_num, processor, product_name, product_status, rating, screen, sim_card)
