@@ -18,8 +18,9 @@ public class SubCategory {
     String nameOfSubCategory;
 
 
+
     @ManyToOne(cascade = {
             CascadeType.ALL})
-    @JoinColumn(name = "subCategory_id")
+    @JoinColumn(name = "category_id")
     Category categoryOfSubCategory;
 }

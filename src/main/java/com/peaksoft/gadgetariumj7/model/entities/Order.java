@@ -32,6 +32,7 @@ public class Order {
     @JoinColumn(name = "payment_id")
     Payment payment;
 
+    @Enumerated(EnumType.STRING)
     PaymentType paymentType;
 
     @ManyToOne
@@ -46,6 +47,7 @@ public class Order {
 
     Double amount;
 
+    @Enumerated(EnumType.STRING)
     DeliveryType deliveryType;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

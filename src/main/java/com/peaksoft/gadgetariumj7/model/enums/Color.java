@@ -10,5 +10,6 @@ public enum Color {
     RED,
     SILVER,
     YELLOW,
-    GREY
+    GREY,
+    WHITE
 }

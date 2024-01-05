@@ -24,19 +24,26 @@ public class Product {
 
     String productName;
 
+    @Enumerated(EnumType.STRING)
     ProductStatus productStatus;
 
-    @OneToOne( mappedBy = "product")
+    @OneToOne(cascade = {
+            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "product_id")
     Category category;
 
+    @Enumerated(EnumType.STRING)
     Memory memory;
 
+    @Enumerated(EnumType.STRING)
     Color color;
 
+    @Enumerated(EnumType.STRING)
     OperationMemory operationMemory;
 
     String screen;
 
+    @Enumerated(EnumType.STRING)
     OperationSystem operationSystem;
 
     String operationSystemNum;

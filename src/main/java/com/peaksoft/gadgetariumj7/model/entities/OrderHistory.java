@@ -33,6 +33,7 @@ public class OrderHistory {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderHistory")
     Delivery delivery;
 
+    @Enumerated(EnumType.ORDINAL)
     DeliveryStatus deliveryStatus;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "orderHistories")
@@ -40,7 +41,7 @@ public class OrderHistory {
 
 
     @ManyToOne(cascade = {
-            CascadeType.MERGE , CascadeType.DETACH , CascadeType.PERSIST , CascadeType.REFRESH})
+            CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     User user;
 

@@ -22,11 +22,11 @@ public class Category {
 
     String electronicType;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryOfSubCategory")
-    List<SubCategory> subCategories;
 
-    @OneToOne(cascade = {
-            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH})
-    @JoinColumn(name = "product_id")
+    @OneToMany(cascade = {
+            CascadeType.ALL} , mappedBy = "categoryOfSubCategory")
+    List <SubCategory> subCategories;
+
+    @OneToOne( mappedBy = "category")
     Product product;
 }

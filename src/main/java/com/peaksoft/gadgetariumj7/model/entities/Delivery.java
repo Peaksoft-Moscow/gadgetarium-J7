@@ -23,6 +23,7 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

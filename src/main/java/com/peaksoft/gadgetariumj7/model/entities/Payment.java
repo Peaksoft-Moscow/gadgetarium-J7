@@ -19,11 +19,12 @@ public class Payment {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Enumerated(EnumType.STRING)
     PaymentSystem paymentSystems;
 
-    Long cardNumber;
+    String cardNumber;
 
-    int cvc;
+    String  cvc;
 
     int monthDate;
 
