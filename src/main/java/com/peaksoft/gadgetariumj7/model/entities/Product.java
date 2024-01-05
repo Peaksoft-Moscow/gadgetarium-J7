@@ -1,7 +1,5 @@
 package com.peaksoft.gadgetariumj7.model.entities;
-
 import com.peaksoft.gadgetariumj7.model.enums.*;
-import com.peaksoft.gadgetariumj7.model.enums.Brand;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,13 +22,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String productName;
+    @Enumerated(EnumType.STRING)
     Electronic catalog;
+    @Enumerated(EnumType.STRING)
     ProductStatus productStatus;
+    @Enumerated(EnumType.STRING)
     Category category;
+    @Enumerated(EnumType.STRING)
     Memory memory;
+    @Enumerated(EnumType.STRING)
     Color color;
+    @Enumerated(EnumType.STRING)
     OperationMemory operationMemory;
     String screen;
+    @Enumerated(EnumType.STRING)
     OperationSystem operationSystem;
     String operationSystemNum;
     String dateOfRelease;
@@ -38,7 +43,8 @@ public class Product {
     String characteristic;
     String currentPrice;
     String quantity;
-     Electronic electronic;
+    @Enumerated(EnumType.STRING)
+    Electronic electronic;
     String feedback;
     int quantityOfSIMCards;
     int article;
@@ -49,6 +55,7 @@ public class Product {
     String rating;
     int discount;
     int price;
+    @Enumerated(EnumType.STRING)
     Brand brand;
     LocalDate createDate;
 
@@ -69,5 +76,8 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    BrandEn brandEn;
 
 }

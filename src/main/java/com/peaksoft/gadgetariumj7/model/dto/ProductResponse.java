@@ -1,6 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.dto;
 
-import com.peaksoft.gadgetariumj7.model.entities.Brand;
+import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.enums.Category;
 import com.peaksoft.gadgetariumj7.model.enums.Color;
 import com.peaksoft.gadgetariumj7.model.enums.Electronic;
@@ -19,7 +19,7 @@ public class ProductResponse {
     private String img;
     private Electronic electronic;
     private Category category;
-    private Brand brand;
+    private BrandEn brand;
     private LocalDate createdDate;
     private String quantity;
     private String price;

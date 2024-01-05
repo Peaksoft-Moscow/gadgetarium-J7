@@ -4,7 +4,7 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.entities.Brand;
+import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
 
@@ -59,15 +59,15 @@ public class ProductMapper {
         return product;
     }
 
-    public Brand mapToEntityBrand(BrandRequest request) {
-        Brand brand = new Brand();
+    public BrandEn mapToEntityBrand(BrandRequest request) {
+        BrandEn brand = new BrandEn();
         brand.setId(request.getId());
         brand.setName(request.getBrandName());
         brand.setImg(request.getImg());
         return brand;
     }
 
-    public BrandResponse mapToResponseBrand(Brand brand) {
+    public BrandResponse mapToResponseBrand(BrandEn brand) {
         return BrandResponse.builder()
                 .id(brand.getId())
                 .brandName(brand.getName())

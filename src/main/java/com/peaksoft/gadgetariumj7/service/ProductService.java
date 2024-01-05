@@ -6,7 +6,7 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.entities.Brand;
+import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
@@ -32,7 +32,7 @@ public class ProductService {
     }
 
     public BrandResponse createBrand(BrandRequest request){
-        Brand brand = productMapper.mapToEntityBrand(request);
+        BrandEn brand = productMapper.mapToEntityBrand(request);
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }

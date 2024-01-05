@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "brands")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Brand {
+public class BrandEn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,9 +25,9 @@ public class Brand {
     String name;
 
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "brand_products",
-//            joinColumns = @JoinColumn(name = "brand_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    List<Product> products;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "brand_products",
+            joinColumns = @JoinColumn(name = "brand_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    List<Product> products;
 }
