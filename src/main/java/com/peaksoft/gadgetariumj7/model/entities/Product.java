@@ -29,7 +29,7 @@ public class Product {
 
     @OneToOne(cascade = {
             CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH})
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "category_id")
     Category category;
 
     @Enumerated(EnumType.STRING)
