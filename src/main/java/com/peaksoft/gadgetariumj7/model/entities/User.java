@@ -18,36 +18,45 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
+
     String name;
+
     @Column(name = "last_Name")
     String lastName;
+
     @Column(unique = true)
     String email;
+
     @Column(name = "phone_number")
     String phoneNumber;
+
     String password;
+
     String Confirm_the_password;
+
     String gender;
+
     String local;
+
     @Enumerated(EnumType.STRING)
     Role role;
+
     @Column(name = "create_date")
     LocalDate createDate;
 
-    @OneToMany(mappedBy = "user")
-    List<Order> orders;
+    @OneToMany (mappedBy = "user")
+    List <Order> orders;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany (mappedBy = "user")
     List<OrderHistory> orderHistories;
 
     @Override

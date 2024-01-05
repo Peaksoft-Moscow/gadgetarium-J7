@@ -15,14 +15,23 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "payments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Payment {
-
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
+
+    @Enumerated(EnumType.STRING)
     PaymentSystem paymentSystems;
-    Long cardNumber;
-    int cvc;
+
+    String cardNumber;
+
+    String  cvc;
+
     int monthDate;
+
     int yearDate;
+
     String userName;
+
+    @OneToOne (mappedBy = "payment")
+    Order order;
 }
