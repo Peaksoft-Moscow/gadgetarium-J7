@@ -1,4 +1,5 @@
 package com.peaksoft.gadgetariumj7.model.entities;
+
 import com.peaksoft.gadgetariumj7.model.enums.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,48 +18,53 @@ import java.util.List;
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String productName;
-    @Enumerated(EnumType.STRING)
-    Electronic catalog;
+
     @Enumerated(EnumType.STRING)
     ProductStatus productStatus;
-    @Enumerated(EnumType.STRING)
+
+    @OneToOne(cascade = {
+            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "category_id")
     Category category;
+
     @Enumerated(EnumType.STRING)
     Memory memory;
+
     @Enumerated(EnumType.STRING)
     Color color;
+
     @Enumerated(EnumType.STRING)
     OperationMemory operationMemory;
+
     String screen;
+
     @Enumerated(EnumType.STRING)
     OperationSystem operationSystem;
-    String operationSystemNum;
-    String dateOfRelease;
-    String simCard;
-    String characteristic;
-    String currentPrice;
-    String quantity;
-    @Enumerated(EnumType.STRING)
-    Electronic electronic;
-    String feedback;
-    int quantityOfSIMCards;
-    int article;
-    String description;
-    String processor;
-    int weight;
-    String guarantee;
-    String rating;
-    int discount;
-    int price;
-    @Enumerated(EnumType.STRING)
-    Brand brand;
-    LocalDate createDate;
 
+    String operationSystemNum;
+
+    String dateOfRelease;
+
+    String simCard;
+
+    String processor;
+
+    int weight;
+
+    String guarantee;
+
+    String rating;
+
+    int discount;
+
+    int price;
+
+    LocalDate createDate;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Basket> baskets;
@@ -69,15 +75,14 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Order> orders;
 
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<OrderHistory> orderHistories;
-
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    BrandEn brandEn;
-
+    @ManyToOne(cascade = {
+            CascadeType.ALL})
+    @JoinColumn(name = "brand_id")
+    Brand brandOfProduct;
 }

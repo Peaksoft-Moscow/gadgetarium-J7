@@ -23,6 +23,7 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,7 +32,11 @@ public class Delivery {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
 
-    @OneToOne
+
+
+    @OneToOne(cascade = {
+            CascadeType.MERGE , CascadeType.REFRESH , CascadeType.PERSIST , CascadeType.DETACH})
+    @JoinColumn(name = "order_history_id")
     OrderHistory orderHistory;
 
     LocalDate orderTime;
