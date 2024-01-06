@@ -31,33 +31,54 @@ public class EmailService {
     MailMapper mailMapper;
     UserRepository userRepository;
 
-    public MailResponse Email(MailRequest request) {
+    public MailResponse sendEmail(MailRequest request) {
         Email email = mailMapper.mapToEntity(request);
         List<User> users = userRepository.findAll();
         for (User user : users) {
             if (user.isSubscribeToTheNewsletter()) {
                 try {
-                    sendMassage(request.getSender(), user.getEmail(), request.getMassage());
+                    sendEmail(user.getEmail(), request.getSender(), request.getMassage());
                 } catch (MessagingException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
-        try {
-            sendMassage(request.getEmail(), request.getSender(), request.getMassage());
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
         mailRepository.save(email);
         return mailMapper.mapToMailResponse(email);
     }
 
-    private void sendMassage(String email, String sender, String massage) throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-        mimeMessageHelper.setTo(email);
-        mimeMessageHelper.setSubject(mimeMessage.getSubject());
-        mimeMessageHelper.setText(mimeMessage.getMessageID());
-        javaMailSender.send(mimeMessage);
+    private void sendEmail(String email, String sender, String massage) throws MessagingException {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject(sender);
+        simpleMailMessage.setText(massage);
+        javaMailSender.send(simpleMailMessage);
     }
 }
+
+
+//    public MailResponse Email(MailRequest request) {
+//        Email email = mailMapper.mapToEntity(request);
+//        List<User> users = userRepository.findAll();
+//        for (User user : users) {
+//            if (user.isSubscribeToTheNewsletter()) {
+//                try {
+//                    sendMassage(user.getEmail(), request.getSender(), request.getMassage());
+//                } catch (MessagingException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+//        mailRepository.save(email);
+//        return mailMapper.mapToMailResponse(email);
+//    }
+//
+//    private void sendMassage(String email, String sender, String massage) throws MessagingException {
+//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+//        mimeMessageHelper.setTo(email);
+//        mimeMessageHelper.setSubject(sender);
+//        mimeMessageHelper.setText(massage);
+//        javaMailSender.send(mimeMessage);
+//    }
+//}

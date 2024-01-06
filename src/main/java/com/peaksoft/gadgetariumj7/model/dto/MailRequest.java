@@ -10,8 +10,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MailRequest {
 
+    String email;
     String sender;
     String massage;
-    String email;
-    boolean sent;
+
 }

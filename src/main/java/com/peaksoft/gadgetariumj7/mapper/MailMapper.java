@@ -10,9 +10,9 @@ public class MailMapper {
 
     public Email mapToEntity(MailRequest request) {
         Email email = new Email();
+        email.setEmail(request.getEmail());
         email.setEmail(request.getSender());
         email.setMassage(request.getMassage());
-        email.setSent(request.isSent());
         return email;
     }
 
@@ -21,7 +21,6 @@ public class MailMapper {
                 .id(email.getId())
                 .sender(email.getEmail())
                 .massage(email.getMassage())
-                .sent(email.isSent())
                 .build();
     }
 }

@@ -19,6 +19,7 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String email;
+    String sender;
     String massage;
-    boolean sent;
+
 }
