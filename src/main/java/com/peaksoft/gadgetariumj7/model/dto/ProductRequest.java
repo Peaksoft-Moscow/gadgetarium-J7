@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.dto;
-import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
+import com.peaksoft.gadgetariumj7.model.entities.Category;
+import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.model.enums.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,21 +14,19 @@ public class ProductRequest {
     private Long id;
     private String img;
     private Category category;
-    private String subCategory;
     private String description;
-    private Electronic electronic;
     private String brand;
     private String name;
     @CreatedDate
     private LocalDate createDate;
     private Color color;
     private Memory memory;
-    private OperationMemory RAM;
+    private OperationMemory operationMemory;
     private int quantityOfSIMCards;
     private int price;
     private int quantity;
     private String guarantee;
-    private Electronic typeOfElectronic;
+    private SubCategory subCategory;
     OperationSystem operationSystem;
     private String linkToVideo;
     private String linkToPDF;

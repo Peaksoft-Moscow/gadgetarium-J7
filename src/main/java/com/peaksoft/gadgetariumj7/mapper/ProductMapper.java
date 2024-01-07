@@ -19,18 +19,15 @@ public class ProductMapper {
                 .price(String.valueOf(product.getPrice()))
                 .color(product.getColor())
                 .discount(product.getDiscount())
-                .electronic(product.getElectronic())
+                .category(product.getCategory())
                 .description(product.getDescription())
                 .characteristic(product.getCharacteristic())
                 .currentPrice(String.valueOf(product.getPrice() - product.getDiscount()))
-                .quantity(product.getQuantity())
-                .quantityOfSIMCards(product.getQuantityOfSIMCards())
                 .memory(product.getMemory())
                 .RAM(String.valueOf(product.getOperationSystem()))
                 .rating(product.getRating())
-                .feedback(product.getFeedback())
+                .feedback(product.getFeedBack())
                 .characteristic(product.getCharacteristic())
-                .article(product.getArticle())
                 .build();
     }
 
@@ -38,23 +35,20 @@ public class ProductMapper {
         Product product = new Product();
         product.setProductName(request.getName());
         product.setColor(request.getColor());
-        product.setQuantity(String.valueOf(request.getQuantity()));
         product.setCategory(request.getCategory());
         product.setCreateDate(request.getCreateDate());
         product.setPrice((request.getPrice()));
-        product.setElectronic((request.getElectronic()));
-        product.setQuantityOfSIMCards((request.getQuantityOfSIMCards()));
+        product.setCategory((request.getCategory()));
         product.setRating((request.getRating()));
         product.setGuarantee(request.getGuarantee());
-        product.setCatalog(request.getTypeOfElectronic());
         product.setMemory(request.getMemory());
-        product.setOperationMemory(request.getRAM());
+        product.setOperationMemory(request.getOperationMemory());
         product.setDiscount(request.getDiscount());
         product.setDiscount(request.getDiscount());
         product.setDescription(request.getDescription());
         product.setDiscount(request.getDiscount());
         product.setCharacteristic(request.getCharacteristic());
-        product.setFeedback(request.getFeedback());
+        product.setFeedBack(request.getFeedback());
         product.setOperationSystem(request.getOperationSystem());
         return product;
     }

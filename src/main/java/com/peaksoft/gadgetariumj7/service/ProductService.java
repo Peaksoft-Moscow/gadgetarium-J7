@@ -62,7 +62,7 @@ public class ProductService {
         product.setMemory(request.getMemory());
         product.setPrice(request.getPrice());
         product.setGuarantee(request.getGuarantee());
-        product.setOperationMemory(request.getRAM());
+        product.setOperationMemory(request.getOperationMemory());
         product.setColor(request.getColor());
         product.setMemory(request.getMemory());
         product.setCreateDate(request.getCreateDate());
