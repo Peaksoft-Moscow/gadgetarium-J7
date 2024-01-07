@@ -31,29 +31,48 @@ public class EmailService {
     MailMapper mailMapper;
     UserRepository userRepository;
 
-    public MailResponse sendEmail(MailRequest request) {
-        Email email = mailMapper.mapToEntity(request);
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
-            if (user.isSubscribeToTheNewsletter()) {
-                try {
-                    sendEmail(user.getEmail(), request.getSender(), request.getMassage());
-                } catch (MessagingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+
+    public void sendEmailToSubscribedUsers() {
+        List<User> subscribedUsers = userRepository.findBySubscribeIsTrue();
+        for (User user : subscribedUsers) {
+            sendEmailToUser(user);
         }
-        mailRepository.save(email);
-        return mailMapper.mapToMailResponse(email);
     }
 
-    private void sendEmail(String email, String sender, String massage) throws MessagingException {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(email);
-        simpleMailMessage.setSubject(sender);
-        simpleMailMessage.setText(massage);
-        javaMailSender.send(simpleMailMessage);
+    private void sendEmailToUser(User user) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setFrom("gad");
+        mailMessage.setSubject("Subject of the Email");
+
+        String message = "Your message here from GiftList";
+        mailMessage.setText(message);
+        javaMailSender.send(mailMessage);
     }
+
+//    public MailResponse Email(MailRequest request) {
+//        Email email = mailMapper.mapToEntity(request);
+//        List<User> users = userRepository.findAll();
+//        for (User user : users) {
+//            if (user.isSubscribeToTheNewsletter()) {
+//                try {
+//                    sendEmail(user.getEmail(), request.getSender(), request.getMassage());
+//                } catch (MessagingException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+//        mailRepository.save(email);
+//        return mailMapper.mapToMailResponse(email);
+//    }
+//
+//    private void sendEmail(String email, String sender, String massage) throws MessagingException {
+//        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+//        simpleMailMessage.setTo(email);
+//        simpleMailMessage.setSubject(sender);
+//        simpleMailMessage.setText(massage);
+//        javaMailSender.send(simpleMailMessage);
+//    }
 }
 
 

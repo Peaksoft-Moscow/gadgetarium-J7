@@ -21,5 +21,4 @@ public class Email {
     String email;
     String sender;
     String massage;
-
 }

@@ -23,7 +23,7 @@ public class MailController {
     @PostMapping("/mail")
     public ResponseEntity<MailResponse> mail(@RequestBody MailRequest request) {
         log.info("Email successfully created");
-        MailResponse response = emailService.sendEmail(request);
+        MailResponse response = emailService.Email(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
