@@ -35,6 +35,7 @@ public class User {
     @Column(name = "create_date")
     LocalDate createDate;
     boolean subscribeToTheNewsletter;
+
     @OneToMany(mappedBy = "user")
     List<Order> orders;
 
