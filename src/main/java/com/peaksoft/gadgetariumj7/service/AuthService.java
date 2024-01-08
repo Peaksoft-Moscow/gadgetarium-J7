@@ -43,13 +43,11 @@ public class AuthService {
     UserRepository userRepository;
     AuthMapper authMapper;
     JavaMailSender javaMailSender;
-    UserRepository userRepository;
-    AuthMapper authMapper;
     AuthenticationManager manager;
     JwtUtil jwtUtil;
     LoginMapper loginMapper;
     PasswordEncoder passwordEncoder;
-    JavaMailSender javaMailSender;
+
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
