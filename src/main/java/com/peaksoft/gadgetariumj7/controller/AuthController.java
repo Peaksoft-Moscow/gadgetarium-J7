@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
@@ -55,20 +54,6 @@ public class AuthController {
         return new ResponseEntity<>(authService.setPassword(email, newPassword, confirmPassword), HttpStatus.CREATED);
     }
 
-
-    @PutMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
-        userRepository.save(user);
-        return new ResponseEntity<>(authService.forgotPassword(email), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/set-password")
-    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword, @RequestHeader String confirmPassword) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
-        userRepository.save(user);
-        return new ResponseEntity<>(authService.setPassword(email, newPassword, confirmPassword), HttpStatus.CREATED);
-    }
 
     @PostMapping("/sign-in")
     public LoginResponse login(@RequestBody LoginRequest request) {
