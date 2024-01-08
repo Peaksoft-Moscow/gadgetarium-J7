@@ -18,11 +18,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-
 @Table(name = "users")
-
+@NoArgsConstructor
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
@@ -68,7 +66,12 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        Role[] roles = new Role[]{};
+        for (Role role1 : roles) {
+            if (role1 == null) {
+                authorities.add(new SimpleGrantedAuthority(role1.getAuthority()));
+            }
+        }
         return authorities;
     }
 

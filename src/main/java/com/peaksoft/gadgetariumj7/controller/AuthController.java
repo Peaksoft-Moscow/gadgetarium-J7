@@ -1,5 +1,7 @@
 package com.peaksoft.gadgetariumj7.controller;
 
+import com.peaksoft.gadgetariumj7.model.entities.User;
+import com.peaksoft.gadgetariumj7.repository.UserRepository;
 import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
 import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
 import com.peaksoft.gadgetariumj7.model.entities.User;
@@ -13,6 +15,7 @@ import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
