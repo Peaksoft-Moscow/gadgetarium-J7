@@ -1,6 +1,7 @@
 package com.peaksoft.gadgetariumj7.service;
 
 import com.peaksoft.gadgetariumj7.model.enums.Role;
+import com.peaksoft.gadgetariumj7.model.enums.Role;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -18,12 +19,17 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -38,18 +44,17 @@ public class AuthService {
 
     UserRepository userRepository;
     AuthMapper authMapper;
+    JavaMailSender javaMailSender;
     AuthenticationManager manager;
     JwtUtil jwtUtil;
     LoginMapper loginMapper;
     PasswordEncoder passwordEncoder;
-    JavaMailSender javaMailSender;
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
         user.setCreateDate(LocalDate.now());
         log.info("User is created");
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
         userRepository.save(user);
         System.out.println(user);
         return authMapper.mapToUserResponse(user);
@@ -91,7 +96,6 @@ public class AuthService {
         javaMailSender.send(mimeMessage);
     }
 
-
     public String forgotPassword(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
         Random random = new Random();
@@ -103,9 +107,7 @@ public class AuthService {
         } catch (MessagingException e) {
             throw new RuntimeException("User not found with this email : " + email);
         }
-
         return "Please check your email to set new password to your account";
-
     }
 
     public String setPassword(String email, String newPassword, String confirmPassword) {
@@ -123,7 +125,7 @@ public class AuthService {
         manager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Not found"));
         String jwt = jwtUtil.generateToken(user);
-        return loginMapper.mapToResponse(jwt,user);
+        return loginMapper.mapToResponse(jwt, user);
     }
 }
 

@@ -1,5 +1,7 @@
 package com.peaksoft.gadgetariumj7.controller;
 
+import com.peaksoft.gadgetariumj7.model.entities.User;
+import com.peaksoft.gadgetariumj7.repository.UserRepository;
 import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
 import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
 import com.peaksoft.gadgetariumj7.model.entities.User;
