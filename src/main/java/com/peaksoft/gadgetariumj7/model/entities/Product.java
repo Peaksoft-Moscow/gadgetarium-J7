@@ -50,6 +50,10 @@ public class Product {
 
     String dateOfRelease;
 
+    String feedBack;
+
+    String description;
+
     String simCard;
 
     String processor;
@@ -59,6 +63,8 @@ public class Product {
     String guarantee;
 
     String rating;
+
+    String characteristic;
 
     int discount;
 
@@ -81,8 +87,7 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
 
-    @ManyToOne(cascade = {
-            CascadeType.ALL})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     Brand brandOfProduct;
 }
