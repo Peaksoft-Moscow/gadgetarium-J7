@@ -23,26 +23,30 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
+
     ProductMapper productMapper = new ProductMapper();
-    public ProductResponse createProduct(ProductRequest request){
+
+    public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.mapToEntity(request);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
     }
 
-    public BrandResponse createBrand(BrandRequest request){
+    public BrandResponse createBrand(BrandRequest request) {
         BrandEn brand = productMapper.mapToEntityBrand(request);
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }
-    public List<ProductResponse> getAllProducts(){
+
+    public List<ProductResponse> getAllProducts() {
         List<ProductResponse> productResponses = new ArrayList<>();
-        for(Product product : productRepository.findAll()) {
+        for (Product product : productRepository.findAll()) {
             productResponses.add(productMapper.mapToResponse(product));
         }
         return productResponses;
     }
+
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
@@ -52,7 +56,7 @@ public class ProductService {
     }
 
 
-    public ProductResponse updateProductById(Long id, ProductRequest request){
+    public ProductResponse updateProductById(Long id, ProductRequest request) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
@@ -71,7 +75,7 @@ public class ProductService {
         return productMapper.mapToResponse(product);
     }
 
-    public void deleteProductById(Long id){
+    public void deleteProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
