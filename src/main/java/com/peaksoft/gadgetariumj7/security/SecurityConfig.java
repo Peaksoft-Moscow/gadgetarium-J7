@@ -51,6 +51,7 @@ public class SecurityConfig {
                             .requestMatchers("/swagger-ui/**",
                                     "/swagger-resources/*",
                                     "/v3/api-docs/**").permitAll()
+                            .requestMatchers("/api/auth/set-password","/api/auth/forgot-password").permitAll()
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
