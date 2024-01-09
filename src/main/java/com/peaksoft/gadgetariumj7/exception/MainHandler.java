@@ -12,4 +12,10 @@ public class MainHandler {
     public ExceptionResponse notFoundException(NotFoundExcepption e) {
         return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getClass().getName(), e.getMessage());
     }
+
+    @ExceptionHandler(IncorrectCodeException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionResponse incorrectCodeException(IncorrectCodeException i) {
+        return new ExceptionResponse(HttpStatus.FORBIDDEN, i.getClass().getName(), i.getMessage());
+    }
 }

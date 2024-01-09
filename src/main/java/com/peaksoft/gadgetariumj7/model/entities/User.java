@@ -53,6 +53,10 @@ public class User implements UserDetails {
     @Column(name = "create_date")
     LocalDate createDate;
 
+    String resetCode;
+
+    String confirmPassword;
+
     @OneToMany(mappedBy = "user")
     List<Order> orders;
 
