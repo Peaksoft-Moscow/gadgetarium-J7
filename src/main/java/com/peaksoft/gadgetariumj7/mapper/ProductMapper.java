@@ -14,12 +14,10 @@ public class ProductMapper {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getProductName())
-                .category(product.getCategory())
                 .createdDate(product.getCreateDate())
                 .price(String.valueOf(product.getPrice()))
                 .color(product.getColor())
                 .discount(product.getDiscount())
-                .category(product.getCategory())
                 .description(product.getDescription())
                 .characteristic(product.getCharacteristic())
                 .currentPrice(String.valueOf(product.getPrice() - product.getDiscount()))
@@ -28,6 +26,7 @@ public class ProductMapper {
                 .rating(product.getRating())
                 .feedback(product.getFeedBack())
                 .characteristic(product.getCharacteristic())
+                .subCategory(product.getSubCategory())
                 .build();
     }
 
@@ -35,10 +34,8 @@ public class ProductMapper {
         Product product = new Product();
         product.setProductName(request.getName());
         product.setColor(request.getColor());
-        product.setCategory(request.getCategory());
         product.setCreateDate(request.getCreateDate());
         product.setPrice((request.getPrice()));
-        product.setCategory((request.getCategory()));
         product.setRating((request.getRating()));
         product.setGuarantee(request.getGuarantee());
         product.setMemory(request.getMemory());

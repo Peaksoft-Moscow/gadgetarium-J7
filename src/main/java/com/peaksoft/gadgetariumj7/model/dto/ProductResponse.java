@@ -17,7 +17,6 @@ public class ProductResponse {
     private Long id;
     private String name;
     private String img;
-    private Category category;
     private SubCategory subCategory;
     private BrandEn brand;
     private LocalDate createdDate;

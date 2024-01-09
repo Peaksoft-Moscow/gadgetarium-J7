@@ -6,10 +6,13 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
+import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
+import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
+import com.peaksoft.gadgetariumj7.repository.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,9 +26,13 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
+    private  final SubCategoryRepository subCategoryRepository;
     ProductMapper productMapper = new ProductMapper();
     public ProductResponse createProduct(ProductRequest request){
         Product product = productMapper.mapToEntity(request);
+        SubCategory subCategory = subCategoryRepository.findById(request.getSubCategoryId()).orElseThrow(
+                ()->new RuntimeException("Not found by this Id"));
+        product.setSubCategory(subCategory);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
@@ -66,7 +73,6 @@ public class ProductService {
         product.setColor(request.getColor());
         product.setMemory(request.getMemory());
         product.setCreateDate(request.getCreateDate());
-        product.setCategory(request.getCategory());
         productRepository.save(product);
         return productMapper.mapToResponse(product);
     }
