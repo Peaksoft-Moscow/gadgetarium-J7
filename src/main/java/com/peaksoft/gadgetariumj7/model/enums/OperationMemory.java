@@ -7,5 +7,4 @@ public enum OperationMemory {
     GB_8,
     GB_12,
     GB_16
-
 }

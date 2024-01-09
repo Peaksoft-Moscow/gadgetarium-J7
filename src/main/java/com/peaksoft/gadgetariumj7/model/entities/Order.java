@@ -19,16 +19,20 @@ import java.util.List;
 @Table(name = "orders")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String image;
+
     String address;
 
-    @OneToOne
+    @OneToOne(cascade = {
+            CascadeType.MERGE , CascadeType.REFRESH , CascadeType.PERSIST , CascadeType.DETACH})
+    @JoinColumn(name = "payment_id")
     Payment payment;
 
+    @Enumerated(EnumType.STRING)
     PaymentType paymentType;
 
     @ManyToOne
@@ -42,6 +46,8 @@ public class Order {
     List<Product>  products;
 
     Double amount;
+
+    @Enumerated(EnumType.STRING)
     DeliveryType deliveryType;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -1,9 +1,9 @@
 package com.peaksoft.gadgetariumj7.model.enums;
 
-public enum Category {
+public enum Brand {
     APPLE,
     SAMSUNG,
-    HUAWEI,
     HONOR,
-    XIAOMI
+    XIAOMI,
+    HUAWEI
 }
