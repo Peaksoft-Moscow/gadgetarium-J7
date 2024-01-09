@@ -18,9 +18,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
 
@@ -52,6 +52,7 @@ public class User implements UserDetails {
 
     @Column(name = "create_date")
     LocalDate createDate;
+    boolean subscribeToTheNewsletter;
 
     String resetCode;
 
