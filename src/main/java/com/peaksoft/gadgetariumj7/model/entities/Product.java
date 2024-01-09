@@ -27,11 +27,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     ProductStatus productStatus;
 
-    @OneToOne(cascade = {
-            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH})
-    @JoinColumn(name = "category_id")
-    Category category;
-
     @Enumerated(EnumType.STRING)
     Memory memory;
 
@@ -72,6 +67,7 @@ public class Product {
 
     LocalDate createDate;
 
+
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Basket> baskets;
 
@@ -90,4 +86,8 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     Brand brandOfProduct;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    SubCategory subCategory;
+
+
 }

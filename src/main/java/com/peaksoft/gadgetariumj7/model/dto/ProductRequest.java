@@ -11,11 +11,8 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class ProductRequest {
-    private Long id;
     private String img;
-    private Category category;
     private String description;
-    private String brand;
     private String name;
     @CreatedDate
     private LocalDate createDate;
@@ -27,6 +24,7 @@ public class ProductRequest {
     private int quantity;
     private String guarantee;
     private SubCategory subCategory;
+    private  Brand brand;
     OperationSystem operationSystem;
     private String linkToVideo;
     private String linkToPDF;
@@ -40,4 +38,6 @@ public class ProductRequest {
     private String genre;
     private String wirelessInterface;
     private String formsOfCorpus;
+    private Long subCategoryId;
+    private Long brandId;
 }

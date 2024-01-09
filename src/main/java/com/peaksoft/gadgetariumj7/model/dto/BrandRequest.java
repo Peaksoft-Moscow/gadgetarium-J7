@@ -9,6 +9,5 @@ import lombok.Setter;
 @Builder
 public class BrandRequest {
     private Long id;
-    private String img;
     private String brandName;
 }
