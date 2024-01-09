@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -39,6 +40,7 @@ public class EmailService {
                 try {
                     sendEmail(user.getEmail(), request.getMassage(), request.getSender());
                 } catch (MailSendException e) {
+                    log.info("Error sending email");
                     throw new MessagingException("Error sending email", e);
                 }
             }
