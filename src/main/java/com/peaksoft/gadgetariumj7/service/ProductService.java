@@ -7,7 +7,6 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Brand;
-import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
@@ -26,30 +25,37 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
-    private  final SubCategoryRepository subCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
     ProductMapper productMapper = new ProductMapper();
-    public ProductResponse createProduct(ProductRequest request){
+
+    public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.mapToEntity(request);
         SubCategory subCategory = subCategoryRepository.findById(request.getSubCategoryId()).orElseThrow(
-                ()->new RuntimeException("Not found by this Id"));
+                () -> new RuntimeException("Not found by this Id"));
+        Brand brandOfProduct = brandRepository.findById(request.getBrandId()).orElseThrow(
+                () -> new RuntimeException("Not found by this Id"));
         product.setSubCategory(subCategory);
+        product.setBrandOfProduct(brandOfProduct);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
     }
 
-    public BrandResponse createBrand(BrandRequest request){
-        BrandEn brand = productMapper.mapToEntityBrand(request);
+
+    public BrandResponse createBrand(BrandRequest request) {
+        Brand brand = productMapper.mapToEntityBrand(request);
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }
-    public List<ProductResponse> getAllProducts(){
+
+    public List<ProductResponse> getAllProducts() {
         List<ProductResponse> productResponses = new ArrayList<>();
-        for(Product product : productRepository.findAll()) {
+        for (Product product : productRepository.findAll()) {
             productResponses.add(productMapper.mapToResponse(product));
         }
         return productResponses;
     }
+
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
@@ -59,7 +65,7 @@ public class ProductService {
     }
 
 
-    public ProductResponse updateProductById(Long id, ProductRequest request){
+    public ProductResponse updateProductById(Long id, ProductRequest request) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
@@ -77,7 +83,7 @@ public class ProductService {
         return productMapper.mapToResponse(product);
     }
 
-    public void deleteProductById(Long id){
+    public void deleteProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );

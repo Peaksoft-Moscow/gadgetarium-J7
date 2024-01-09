@@ -4,7 +4,7 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
+import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +27,7 @@ public class ProductMapper {
                 .feedback(product.getFeedBack())
                 .characteristic(product.getCharacteristic())
                 .subCategory(product.getSubCategory())
+                .brand(mapToResponseBrand(product.getBrandOfProduct()))
                 .build();
     }
 
@@ -50,19 +51,16 @@ public class ProductMapper {
         return product;
     }
 
-    public BrandEn mapToEntityBrand(BrandRequest request) {
-        BrandEn brand = new BrandEn();
-        brand.setId(request.getId());
-        brand.setName(request.getBrandName());
-        brand.setImg(request.getImg());
+    public Brand mapToEntityBrand(BrandRequest request) {
+        Brand brand = new Brand();
+        brand.setBrandName(request.getBrandName());
         return brand;
     }
 
-    public BrandResponse mapToResponseBrand(BrandEn brand) {
+    public BrandResponse mapToResponseBrand(Brand brand) {
         return BrandResponse.builder()
                 .id(brand.getId())
-                .brandName(brand.getName())
-                .img(brand.getImg())
+                .brandName(brand.getBrandName())
                 .build();
     }
 }

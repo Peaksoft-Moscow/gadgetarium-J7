@@ -24,6 +24,7 @@ public class ProductRequest {
     private int quantity;
     private String guarantee;
     private SubCategory subCategory;
+    private  Brand brand;
     OperationSystem operationSystem;
     private String linkToVideo;
     private String linkToPDF;
