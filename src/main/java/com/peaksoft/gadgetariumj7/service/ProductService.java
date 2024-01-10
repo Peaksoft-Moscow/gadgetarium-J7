@@ -10,10 +10,13 @@ import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,26 +26,38 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
+
     ProductMapper productMapper = new ProductMapper();
-    public ProductResponse createProduct(ProductRequest request){
+    public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.mapToEntity(request);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
     }
 
-    public BrandResponse createBrand(BrandRequest request){
+    public BrandResponse createBrand(BrandRequest request) {
         BrandEn brand = productMapper.mapToEntityBrand(request);
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }
-    public List<ProductResponse> getAllProducts(){
+
+    public List<ProductResponse> getAllProducts(Principal principal) {
         List<ProductResponse> productResponses = new ArrayList<>();
-        for(Product product : productRepository.findAll()) {
+        for (Product product : productRepository.findAll()) {
             productResponses.add(productMapper.mapToResponse(product));
+        }
+        if (principal != null) {
+            String userId = principal.getName();
+            List<Product> userProduct = productRepository.findAllByUserId(userId);
+            for (Product product : userProduct) {
+                productResponses.add(productMapper.mapToResponse(product));
+            }
+        } else {
+            throw new RuntimeException("User name exactly to null", null);
         }
         return productResponses;
     }
+
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
@@ -51,8 +66,7 @@ public class ProductService {
         return productMapper.mapToResponse(product);
     }
 
-
-    public ProductResponse updateProductById(Long id, ProductRequest request){
+    public ProductResponse updateProductById(Long id, ProductRequest request) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
@@ -71,7 +85,7 @@ public class ProductService {
         return productMapper.mapToResponse(product);
     }
 
-    public void deleteProductById(Long id){
+    public void deleteProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );

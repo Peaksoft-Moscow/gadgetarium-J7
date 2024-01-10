@@ -90,4 +90,8 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     Brand brandOfProduct;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+            @JoinColumn(name = "user_id")
+    List<User> users;
 }

@@ -8,44 +8,45 @@ import com.peaksoft.gadgetariumj7.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/product")
 public class ProductController {
+
     private final ProductService productService;
 
     @PostMapping("/create")
     public ProductResponse createProduct(@RequestBody ProductRequest request) {
         return productService.createProduct(request);
     }
+
     @PostMapping("/createBrand")
     public BrandResponse createBrand(@RequestBody BrandRequest request) {
         return productService.createBrand(request);
     }
 
-
     @GetMapping("/getAll")
-    public List<ProductResponse> getAll() {
-        return productService.getAllProducts();
+    public List<ProductResponse> getAll(Principal principal) {
+        return productService.getAllProducts(principal);
     }
 
     @GetMapping("/getById/{id}")
-    public ProductResponse getById(@PathVariable Long id){
+    public ProductResponse getById(@PathVariable Long id) {
         return productService.getById(id);
     }
+
     @PutMapping("/updateById/{id}")
     public ProductResponse updateById(@RequestBody ProductRequest request, @PathVariable("id") Long id) {
         return productService.updateProductById(id, request);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public String deleteById(@PathVariable("id")Long id){
-         productService.deleteProductById(id);
-         return "deleted";
+    public String deleteById(@PathVariable("id") Long id) {
+        productService.deleteProductById(id);
+        return "deleted";
 
     }
-
-
 }
