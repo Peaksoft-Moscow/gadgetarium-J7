@@ -4,6 +4,7 @@ import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.model.enums.Color;
 import com.peaksoft.gadgetariumj7.model.enums.Memory;
+import com.peaksoft.gadgetariumj7.model.enums.ProductStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class ProductResponse {
     private boolean PDF;
     private String rating;
     private BrandResponse brand;
+    private ProductStatus productStatus;
 
 
 }
