@@ -88,4 +88,39 @@ public class ProductService {
         productRepository.deleteById(product.getId());
         log.info("Deleted");
     }
+
+    public List<ProductResponse> getProductByStatusNewDevices() {
+        List<Product> products = productRepository.findAll();
+        List<Product> newDevices = productRepository.findByStatusNewDevice();
+        for (Product product : products) {
+            if (product.getProductStatus().equals("NEW_DEVICES")) {
+                return newDevices.stream().map(productMapper::mapToResponse).toList();
+            }
+        }
+        return newDevices.stream().map(productMapper::mapToResponse).toList();
+    }
+
+    public List<ProductResponse> getProductByStatusSale() {
+        List<Product> products = productRepository.findAll();
+        List<Product> sale = productRepository.findByStatusSale();
+        for (Product product : products) {
+            if (product.getProductStatus().equals("SALES")) {
+                return sale.stream().map(productMapper::mapToResponse).toList();
+            }
+        }
+        return sale.stream().map(productMapper::mapToResponse).toList();
+    }
+
+    public List<ProductResponse> getProductByStatusRecommend() {
+        List<Product> products = productRepository.findAll();
+        List<Product> recommend = productRepository.findByStatusRecommend();
+        for (Product product : products) {
+            if (product.getProductStatus().equals("RECOMMENDATIONS")) {
+                return recommend.stream().map(productMapper::mapToResponse).toList();
+            }
+        }
+        return recommend.stream().map(productMapper::mapToResponse).toList();
+    }
+
+
 }
