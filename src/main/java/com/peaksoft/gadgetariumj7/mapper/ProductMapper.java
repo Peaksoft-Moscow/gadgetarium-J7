@@ -28,6 +28,7 @@ public class ProductMapper {
                 .characteristic(product.getCharacteristic())
                 .subCategory(product.getSubCategory())
                 .brand(mapToResponseBrand(product.getBrandOfProduct()))
+                .productStatus(product.getProductStatus())
                 .build();
     }
 
@@ -48,6 +49,7 @@ public class ProductMapper {
         product.setCharacteristic(request.getCharacteristic());
         product.setFeedBack(request.getFeedback());
         product.setOperationSystem(request.getOperationSystem());
+        product.setProductStatus(request.getProductStatus());
         return product;
     }
 

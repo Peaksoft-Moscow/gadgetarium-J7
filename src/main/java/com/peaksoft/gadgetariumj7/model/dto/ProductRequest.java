@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -24,7 +25,7 @@ public class ProductRequest {
     private int quantity;
     private String guarantee;
     private SubCategory subCategory;
-    private  Brand brand;
+    private Brand brand;
     OperationSystem operationSystem;
     private String linkToVideo;
     private String linkToPDF;
@@ -40,4 +41,5 @@ public class ProductRequest {
     private String formsOfCorpus;
     private Long subCategoryId;
     private Long brandId;
+    private ProductStatus productStatus;
 }
