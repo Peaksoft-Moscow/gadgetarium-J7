@@ -16,5 +16,4 @@ public class AuthResponse {
     String lastName;
     String email;
     String phoneNumber;
-
 }

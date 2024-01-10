@@ -20,13 +20,12 @@ public class SubCategory {
 
     String nameOfSubCategory;
 
-
-
     @ManyToOne(cascade = {
             CascadeType.ALL})
     @JoinColumn(name = "category_id")
     Category categoryOfSubCategory;
+
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "subCategory")
-    List<Product>products;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subCategory")
+    List<Product> products;
 }
