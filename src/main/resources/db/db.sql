@@ -1,11 +1,14 @@
-insert into users (create_date,  email, gender, last_name, local, password, name, phone_number,
-                   role)
-values ('04-01-2024',  'admin@gmail.com', 'FEMALE', 'Adminova', '-', '$2a$12$cJqV4jcJgevHCRzZ6CHYmeE6iMpMhRH0OmCxjU16fck/rPDfgng32', 'Adminka', '+7389683423', 'ADMIN'),
+insert into users (create_date, mailing, gender, last_name, local, password, name, phone_number,
+                   role, subscribe)
+values ('04-01-2024', 'admin@gmail.com', 'FEMALE', 'Adminova', '-',
+        '$2a$12$cJqV4jcJgevHCRzZ6CHYmeE6iMpMhRH0OmCxjU16fck/rPDfgng32', 'Adminka', '+7389683423', 'ADMIN', false),
 
-       ('04-01-2024',  'user1@gmail.com', 'FEMALE', 'Userova', '-', '$2a$12$03nsempyLxGKYZ9uhEew0u/dv1g0u7v.Mplf7hrvoMoJ4gl72Vkle', 'Userka', '+7834932112', 'USER'),
+       ('04-01-2024', 'user1@gmail.com', 'FEMALE', 'Userova', '-',
+        '$2a$12$03nsempyLxGKYZ9uhEew0u/dv1g0u7v.Mplf7hrvoMoJ4gl72Vkle', 'Userka', '+7834932112', 'USER', true),
 
-       ('04-01-2024', 'user2@gmail.com', 'MALE', 'Userov', '-', '$2a$12$WoDhXlFLi.GlgMqrEaxEsuxTuHGIk0i95/s44U52wQAUTVDbVg6Am',
-        'User', '+7984342034', 'USER');
+       ('04-01-2024', 'user2@gmail.com', 'MALE', 'Userov', '-',
+        '$2a$12$WoDhXlFLi.GlgMqrEaxEsuxTuHGIk0i95/s44U52wQAUTVDbVg6Am',
+        'User', '+7984342034', 'USER', false);
 
 insert into categories (electronic_type)
 values ('Smartphones'),
@@ -59,7 +62,7 @@ values ('Apple'),
        ('Huawei'),
        ('Microsoft');
 
-insert into products ( create_date, discount, price, weight, brand_id, color, date_of_release, guarantee, memory,
+insert into products (create_date, discount, price, weight, brand_id, color, date_of_release, guarantee, memory,
                       operation_memory, operation_system,
                       operation_system_num, processor, product_name, product_status, rating, screen, sim_card)
 values ('05-01-2024', 0, 30000, 187, 1, 'WHITE', '10-09-2019', '1 year', 'GB_128', 'GB_8', 'IOS', '17',

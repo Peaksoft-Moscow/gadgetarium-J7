@@ -16,5 +16,5 @@ public class AuthResponse {
     String lastName;
     String email;
     String phoneNumber;
-    boolean subscribeToTheNewsletter;
+    boolean subscribe;
 }

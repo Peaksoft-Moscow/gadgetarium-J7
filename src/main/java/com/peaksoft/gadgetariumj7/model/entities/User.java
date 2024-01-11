@@ -50,7 +50,7 @@ public class User implements UserDetails {
 
     @Column(name = "create_date")
     LocalDate createDate;
-    boolean subscribeToTheNewsletter;
+    boolean subscribe;
 
     String resetCode;
 

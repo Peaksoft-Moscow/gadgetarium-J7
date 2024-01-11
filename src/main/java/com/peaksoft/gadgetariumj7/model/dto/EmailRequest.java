@@ -5,12 +5,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MailRequest {
+public class EmailRequest {
 
-    String email;
-    String sender;
+    String mailingName;
+    String newsletterDescription;
     String massage;
+    String image;
+    LocalDate promotionStartDate;
+    LocalDate promotionEndDate;
 }

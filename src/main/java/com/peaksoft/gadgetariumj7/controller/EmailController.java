@@ -1,8 +1,8 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.peaksoft.gadgetariumj7.model.dto.MailRequest;
-import com.peaksoft.gadgetariumj7.model.dto.MailResponse;
-import com.peaksoft.gadgetariumj7.service.EmailService;
+import com.peaksoft.gadgetariumj7.model.dto.EmailRequest;
+import com.peaksoft.gadgetariumj7.model.dto.EmailResponse;
+import com.peaksoft.gadgetariumj7.service.MailingService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class MailController {
+public class EmailController {
 
-    EmailService emailService;
+    MailingService mailingService;
 
     @SneakyThrows
     @PostMapping("/mail")
-    public ResponseEntity<MailResponse> mail(@RequestBody MailRequest request) {
-        log.info("Email successfully created");
-        MailResponse response = emailService.email(request);
+    public ResponseEntity<EmailResponse> mail(@RequestBody EmailRequest request) {
+        log.info("Mailing successfully created");
+        EmailResponse response = mailingService.createMailing(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
