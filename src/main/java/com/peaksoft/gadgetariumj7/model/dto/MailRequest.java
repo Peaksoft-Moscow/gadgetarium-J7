@@ -13,5 +13,4 @@ public class MailRequest {
     String email;
     String sender;
     String massage;
-
 }

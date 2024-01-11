@@ -14,5 +14,4 @@ public class MailResponse {
     Long id;
     String sender;
     String massage;
-
 }
