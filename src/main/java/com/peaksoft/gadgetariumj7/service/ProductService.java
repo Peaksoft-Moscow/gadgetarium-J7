@@ -26,21 +26,20 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
     private final SubCategoryRepository subCategoryRepository;
-    ProductMapper productMapper = new ProductMapper();
+    private final ProductMapper productMapper;
 
     public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.mapToEntity(request);
         SubCategory subCategory = subCategoryRepository.findById(request.getSubCategoryId()).orElseThrow(
-                () -> new RuntimeException("Not found by this Id"));
+                () -> new NotFoundExcepption("Not found by this Id"));
         Brand brandOfProduct = brandRepository.findById(request.getBrandId()).orElseThrow(
-                () -> new RuntimeException("Not found by this Id"));
+                () -> new NotFoundExcepption("Not found by this Id"));
         product.setSubCategory(subCategory);
         product.setBrandOfProduct(brandOfProduct);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
     }
-
 
     public BrandResponse createBrand(BrandRequest request) {
         Brand brand = productMapper.mapToEntityBrand(request);
@@ -64,7 +63,6 @@ public class ProductService {
         return productMapper.mapToResponse(product);
     }
 
-
     public ProductResponse updateProductById(Long id, ProductRequest request) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
@@ -87,7 +85,7 @@ public class ProductService {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
-        productRepository.deleteById(id);
+        productRepository.deleteById(product.getId());
         log.info("Deleted");
     }
 }

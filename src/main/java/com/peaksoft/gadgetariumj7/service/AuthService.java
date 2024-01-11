@@ -1,6 +1,7 @@
 package com.peaksoft.gadgetariumj7.service;
 
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
+import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -36,7 +37,6 @@ import java.util.Random;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthService {
-
     UserRepository userRepository;
     AuthMapper authMapper;
     AuthenticationManager manager;
@@ -44,7 +44,6 @@ public class AuthService {
     LoginMapper loginMapper;
     PasswordEncoder passwordEncoder;
     JavaMailSender javaMailSender;
-
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
@@ -58,7 +57,7 @@ public class AuthService {
     public Map<String, Object> saveWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         OAuth2AuthenticatedPrincipal principal = oAuth2AuthenticationToken.getPrincipal();
         if (oAuth2AuthenticationToken == null) {
-            throw new IllegalArgumentException("The token must not be null");
+            throw new NotFoundExcepption("The token must not be null");
         }
         Map<String, Object> attributes = principal.getAttributes();
         User user = new User();
@@ -79,15 +78,18 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new NotFoundExcepption("User with: "+request.getEmail()+" not found !"));
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())){
+            throw new IncorrectCodeException("The password is incorrect !");
+        }
         manager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("Not found"));
         String jwt = jwtUtil.generateToken(user);
         return loginMapper.mapToResponse(jwt, user);
     }
 
     public void sendSetPasswordEmail(String email) throws MessagingException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
-
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: "+email+" not found !"));
         String strCode = String.valueOf(user.getResetCode());
         userRepository.save(user);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -99,7 +101,7 @@ public class AuthService {
     }
 
     public String forgotPassword(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: "+email+" not found !"));
         Random random = new Random();
         Long resetCod = random.nextLong(10000000);
         user.setResetCode(String.valueOf(resetCod));
@@ -107,21 +109,21 @@ public class AuthService {
         try {
             sendSetPasswordEmail(email);
         } catch (MessagingException e) {
-            throw new RuntimeException("User not found with this email : " + email);
+            throw new NotFoundExcepption("User with: "+email+" not found !");
         }
         return "Please check your email to set new password to your account";
     }
 
     public String setPassword(String email, String resetCode, String newPassword, String confirmPassword) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email : " + email));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User with: "+email+" not found !"));
         if (user.getResetCode().equals(resetCode)) {
             if (newPassword.equals(confirmPassword)) {
                 user.setPassword(passwordEncoder.encode(newPassword));
             } else {
-                throw new IncorrectCodeException("Password Incorrect");
+                throw new IncorrectCodeException("The password does not match !");
             }
         } else {
-            throw new IncorrectCodeException("Password Incorrect");
+            throw new IncorrectCodeException("The code does not match");
         }
         userRepository.save(user);
         return "New password set successfully login with this password";

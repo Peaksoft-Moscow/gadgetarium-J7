@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.mapper;
 
+import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
@@ -13,11 +14,9 @@ public class AuthMapper {
         User user = new User();
         user.setName(request.getName());
         user.setLastName(request.getLastName());
-        user.setPassword(request.getPassword());
-        if (request.getPassword().equals(request.getConfirm_the_password())) {
-            throw new RuntimeException("password not match");
+        if (!request.getPassword().equals(request.getConfirm_the_password())) {
+            throw new IncorrectCodeException("The password does not match !");
         }
-        user.setConfirm_the_password(request.getConfirm_the_password());
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
         user.setRole(Role.USER);

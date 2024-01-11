@@ -41,8 +41,6 @@ public class User implements UserDetails {
 
     String password;
 
-    String Confirm_the_password;
-
     String gender;
 
     String local;
