@@ -48,20 +48,4 @@ public class ProductController {
         productService.deleteProductById(id);
         return "deleted";
     }
-
-    @GetMapping("/statusNewDevice")
-    List<ProductResponse> getProductByStatusNewDevices() {
-        return productService.getProductByStatusNewDevices();
-    }
-
-    @GetMapping("/statusSale")
-    List<ProductResponse> getProductByStatusSale() {
-        return productService.getProductByStatusSale();
-    }
-
-    @GetMapping("/statusRecommend")
-    List<ProductResponse> getProductByStatusRecommend() {
-        return productService.getProductByStatusRecommend();
-    }
-
 }
