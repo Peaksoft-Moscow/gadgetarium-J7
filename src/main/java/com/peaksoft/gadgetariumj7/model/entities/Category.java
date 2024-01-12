@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,11 +23,12 @@ public class Category {
 
     String electronicType;
 
-
+    @JsonIgnore
     @OneToMany(cascade = {
-            CascadeType.ALL} , mappedBy = "categoryOfSubCategory")
-    List <SubCategory> subCategories;
+            CascadeType.ALL}, mappedBy = "categoryOfSubCategory")
+    List<SubCategory> subCategories;
 
-    @OneToOne( mappedBy = "category")
-    Product product;
+//    @OneToOne( mappedBy = "category")
+//    Product product;
+
 }

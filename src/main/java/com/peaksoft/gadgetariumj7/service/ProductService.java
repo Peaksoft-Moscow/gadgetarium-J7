@@ -6,17 +6,16 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.entities.BrandEn;
+import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
+import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
-import lombok.AccessLevel;
+import com.peaksoft.gadgetariumj7.repository.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,34 +25,32 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
+    private final SubCategoryRepository subCategoryRepository;
+    private final ProductMapper productMapper;
 
-    ProductMapper productMapper = new ProductMapper();
     public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.mapToEntity(request);
+        SubCategory subCategory = subCategoryRepository.findById(request.getSubCategoryId()).orElseThrow(
+                () -> new NotFoundExcepption("Not found by this Id"));
+        Brand brandOfProduct = brandRepository.findById(request.getBrandId()).orElseThrow(
+                () -> new NotFoundExcepption("Not found by this Id"));
+        product.setSubCategory(subCategory);
+        product.setBrandOfProduct(brandOfProduct);
         productRepository.save(product);
         log.info("created a new product");
         return productMapper.mapToResponse(product);
     }
 
     public BrandResponse createBrand(BrandRequest request) {
-        BrandEn brand = productMapper.mapToEntityBrand(request);
+        Brand brand = productMapper.mapToEntityBrand(request);
         brandRepository.save(brand);
         return productMapper.mapToResponseBrand(brand);
     }
 
-    public List<ProductResponse> getAllProducts(Principal principal) {
+    public List<ProductResponse> getAllProducts() {
         List<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : productRepository.findAll()) {
             productResponses.add(productMapper.mapToResponse(product));
-        }
-        if (principal != null) {
-            String userId = principal.getName();
-            List<Product> userProduct = productRepository.findAllByUserId(userId);
-            for (Product product : userProduct) {
-                productResponses.add(productMapper.mapToResponse(product));
-            }
-        } else {
-            throw new RuntimeException("User name exactly to null", null);
         }
         return productResponses;
     }
@@ -80,7 +77,6 @@ public class ProductService {
         product.setColor(request.getColor());
         product.setMemory(request.getMemory());
         product.setCreateDate(request.getCreateDate());
-        product.setCategory(request.getCategory());
         productRepository.save(product);
         return productMapper.mapToResponse(product);
     }
@@ -89,7 +85,7 @@ public class ProductService {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );
-        productRepository.deleteById(id);
+        productRepository.deleteById(product.getId());
         log.info("Deleted");
     }
 }
