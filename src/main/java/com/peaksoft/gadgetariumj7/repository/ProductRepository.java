@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.id =:userId")
-    List<Product> findAllByUserId(@Param("userId") String userId);
+    List<Product> getByUserId(@Param("userId") String userId);
 }

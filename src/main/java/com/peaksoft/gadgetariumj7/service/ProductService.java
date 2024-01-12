@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class ProductService {
         product.setBrandOfProduct(brandOfProduct);
         productRepository.save(product);
         log.info("created a new product");
+
         return productMapper.mapToResponse(product);
     }
 
@@ -55,7 +57,7 @@ public class ProductService {
         return productResponses;
     }
 
-    public ProductResponse getById(Long id) {
+    public ProductResponse getById(Long id, Principal principal) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );

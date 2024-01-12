@@ -29,13 +29,13 @@ public class ProductController {
     }
 
     @GetMapping("/getAll")
-    public List<ProductResponse> getAll(Principal principal) {
-        return productService.getAllProducts(principal);
+    public List<ProductResponse> getAll() {
+        return productService.getAllProducts();
     }
 
     @GetMapping("/getById/{id}")
-    public ProductResponse getById(@PathVariable Long id) {
-        return productService.getById(id);
+    public ProductResponse getById(@PathVariable Long id, Principal principal) {
+        return productService.getById(id,principal);
     }
 
     @PutMapping("/updateById/{id}")
