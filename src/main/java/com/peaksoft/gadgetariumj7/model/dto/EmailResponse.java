@@ -17,9 +17,9 @@ public class EmailResponse {
     Long id;
     String email;
     String sender;
+    String massage;
     String mailingName;
     String newsletterDescription;
-    String massage;
     String image;
     LocalDate promotionStartDate;
     LocalDate promotionEndDate;
