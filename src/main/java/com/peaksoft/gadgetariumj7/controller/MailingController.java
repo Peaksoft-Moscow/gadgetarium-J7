@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class EmailController {
+public class MailingController {
 
     MailingService mailingService;
 

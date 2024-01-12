@@ -27,13 +27,14 @@ public class EmailConfig {
         return mailSender;
     }
 
-    @Bean(name = "Bektursun")
+    @Bean(name = "Bektur")
     public JavaMailSender javaMailSenders() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setUsername("amanovbektur764@gmail.com");
-        mailSender.setPassword("iblqizhxamlvckt");
+        mailSender.setPassword("xiblqizhxamlvckt");
+
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
@@ -41,4 +42,6 @@ public class EmailConfig {
         props.put("mail.debug", "true");
         return mailSender;
     }
+
+
 }

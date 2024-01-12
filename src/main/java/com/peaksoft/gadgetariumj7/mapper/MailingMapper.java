@@ -12,6 +12,8 @@ public class MailingMapper {
 
     public Mailing mapToEntity(EmailRequest request) {
         Mailing mailing = new Mailing();
+        mailing.setEmail(request.getEmail());
+        mailing.setSender(request.getSender());
         mailing.setMailingName(request.getMailingName());
         mailing.setNewsletterDescription(request.getNewsletterDescription());
         mailing.setMassage(request.getMassage());
@@ -25,6 +27,8 @@ public class MailingMapper {
     public EmailResponse mapToMailResponse(Mailing mailing) {
         return EmailResponse.builder()
                 .id(mailing.getId())
+                .email(mailing.getEmail())
+                .sender(mailing.getSender())
                 .mailingName(mailing.getMailingName())
                 .newsletterDescription(mailing.getNewsletterDescription())
                 .massage(mailing.getMassage())

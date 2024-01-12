@@ -15,6 +15,8 @@ import java.time.LocalDate;
 public class EmailResponse {
 
     Long id;
+    String email;
+    String sender;
     String mailingName;
     String newsletterDescription;
     String massage;

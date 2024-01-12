@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmailRequest {
 
+    String email;
+    String sender;
     String mailingName;
     String newsletterDescription;
     String massage;

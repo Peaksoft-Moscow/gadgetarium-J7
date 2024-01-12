@@ -19,6 +19,8 @@ public class Mailing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    String email;
+    String sender;
     @Column(name = "mailing_name")
     String mailingName;
     @Column(name = "newsletter_description")
