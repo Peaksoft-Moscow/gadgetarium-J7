@@ -1,7 +1,7 @@
 package com.peaksoft.gadgetariumj7.mapper;
 
-import com.peaksoft.gadgetariumj7.model.dto.EmailRequest;
-import com.peaksoft.gadgetariumj7.model.dto.EmailResponse;
+import com.peaksoft.gadgetariumj7.model.dto.MailingRequest;
+import com.peaksoft.gadgetariumj7.model.dto.MailingResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Mailing;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Component
 public class MailingMapper {
 
-    public Mailing mapToEntity(EmailRequest request) {
+    public Mailing mapToEntity(MailingRequest request) {
         Mailing mailing = new Mailing();
         mailing.setEmail(request.getEmail());
         mailing.setSender(request.getSender());
@@ -24,8 +24,8 @@ public class MailingMapper {
         return mailing;
     }
 
-    public EmailResponse mapToMailResponse(Mailing mailing) {
-        return EmailResponse.builder()
+    public MailingResponse mapToMailResponse(Mailing mailing) {
+        return MailingResponse.builder()
                 .id(mailing.getId())
                 .email(mailing.getEmail())
                 .sender(mailing.getSender())

@@ -1,7 +1,7 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.peaksoft.gadgetariumj7.model.dto.EmailRequest;
-import com.peaksoft.gadgetariumj7.model.dto.EmailResponse;
+import com.peaksoft.gadgetariumj7.model.dto.MailingRequest;
+import com.peaksoft.gadgetariumj7.model.dto.MailingResponse;
 import com.peaksoft.gadgetariumj7.service.MailingService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class MailingController {
 
     @SneakyThrows
     @PostMapping("/mail")
-    public ResponseEntity<EmailResponse> mail(@RequestBody EmailRequest request) {
+    public ResponseEntity<MailingResponse> mail(@RequestBody MailingRequest request) {
         log.info("Mailing successfully created");
-        EmailResponse response = mailingService.createMailing(request);
+        MailingResponse response = mailingService.createMailing(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

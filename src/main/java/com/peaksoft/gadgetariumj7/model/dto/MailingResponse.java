@@ -1,10 +1,8 @@
 package com.peaksoft.gadgetariumj7.model.dto;
 
 
-import jakarta.persistence.Column;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -12,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class EmailResponse {
+public class MailingResponse {
 
     Long id;
     String email;

@@ -1,13 +1,13 @@
 package com.peaksoft.gadgetariumj7.service;
 
+import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.mapper.MailingMapper;
-import com.peaksoft.gadgetariumj7.model.dto.EmailRequest;
-import com.peaksoft.gadgetariumj7.model.dto.EmailResponse;
+import com.peaksoft.gadgetariumj7.model.dto.MailingRequest;
+import com.peaksoft.gadgetariumj7.model.dto.MailingResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Mailing;
 import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.repository.MailingRepository;
 import com.peaksoft.gadgetariumj7.repository.UserRepository;
-import jakarta.mail.MessagingException;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,23 +31,23 @@ public class MailingService {
     UserRepository userRepository;
 
     @Autowired
-    public MailingService(@Qualifier("Bektur") JavaMailSender javaMailSender, MailingRepository mailingRepository, MailingMapper mailMapper, UserRepository userRepository) {
+    public MailingService(@Qualifier("Bektursun") JavaMailSender javaMailSender, MailingRepository mailingRepository, MailingMapper mailMapper, UserRepository userRepository) {
         this.javaMailSender = javaMailSender;
         this.mailingRepository = mailingRepository;
         this.mailMapper = mailMapper;
         this.userRepository = userRepository;
     }
 
-    public EmailResponse createMailing(EmailRequest request) throws MessagingException {
+    public MailingResponse createMailing(MailingRequest request) {
         Mailing email = mailMapper.mapToEntity(request);
         List<User> users = userRepository.findAll();
         for (User user : users) {
             if (user.isSubscribe()) {
                 try {
-                    sendMailing(user.getEmail(), request.getMassage(), request.getSender());
+                    sendMailing(request.getMassage(), request.getMailingName(), request.getImage());
                 } catch (MailSendException e) {
                     log.info("Error sending email");
-                    throw new MessagingException("Error sending email", e);
+                    throw new IncorrectCodeException("Error sending email");
                 }
             }
         }

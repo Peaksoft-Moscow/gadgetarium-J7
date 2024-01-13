@@ -27,7 +27,7 @@ public class EmailConfig {
         return mailSender;
     }
 
-    @Bean(name = "Bektur")
+    @Bean(name = "Bektursun")
     public JavaMailSender javaMailSenders() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
