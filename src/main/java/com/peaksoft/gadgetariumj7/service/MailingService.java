@@ -44,7 +44,7 @@ public class MailingService {
         for (User user : users) {
             if (user.isSubscribe()) {
                 try {
-                    sendMailing(request.getMassage(), request.getMailingName(), request.getImage());
+                    sendMailing(request.getEmail(), request.getSender(), request.getMassage());
                 } catch (MailSendException e) {
                     log.info("Error sending email");
                     throw new IncorrectCodeException("Error sending email");

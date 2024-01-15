@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,8 @@ public class MailingRequest {
     String mailingName;
     String newsletterDescription;
     String image;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     LocalDate promotionStartDate;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     LocalDate promotionEndDate;
 }

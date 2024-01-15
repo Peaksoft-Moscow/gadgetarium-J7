@@ -21,7 +21,6 @@ public class MailingController {
 
     MailingService mailingService;
 
-    @SneakyThrows
     @PostMapping("/mail")
     public ResponseEntity<MailingResponse> mail(@RequestBody MailingRequest request) {
         log.info("Mailing successfully created");
