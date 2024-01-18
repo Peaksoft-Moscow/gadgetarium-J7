@@ -1,4 +1,4 @@
-insert into users (create_date, mailing, gender, last_name, local, password, name, phone_number,
+insert into users (create_date, email, gender, last_name, local, password, name, phone_number,
                    role, subscribe)
 values ('04-01-2024', 'admin@gmail.com', 'FEMALE', 'Adminova', '-',
         '$2a$12$cJqV4jcJgevHCRzZ6CHYmeE6iMpMhRH0OmCxjU16fck/rPDfgng32', 'Adminka', '+7389683423', 'ADMIN', false),
