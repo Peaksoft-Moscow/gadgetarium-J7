@@ -1,4 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.dto;
+
+import com.peaksoft.gadgetariumj7.model.entities.Category;
 import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.model.enums.*;
 import lombok.Builder;

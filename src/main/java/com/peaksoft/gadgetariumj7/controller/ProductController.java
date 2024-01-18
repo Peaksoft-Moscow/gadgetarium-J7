@@ -44,8 +44,15 @@ public class ProductController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public String deleteById(@PathVariable("id") Long id) {
-        productService.deleteProductById(id);
-        return "deleted";
+    public String deleteById(@PathVariable("id")Long id){
+         productService.deleteProductById(id);
+         return "deleted";
+
     }
+
+    @GetMapping("/statusRecommend")
+    List<ProductResponse> getProductByStatusRecommend() {
+        return productService.getProductByStatusRecommend();
+    }
+
 }

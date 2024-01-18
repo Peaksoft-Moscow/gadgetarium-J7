@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.model.dto;
 
+import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
 import com.peaksoft.gadgetariumj7.model.enums.Color;
 import com.peaksoft.gadgetariumj7.model.enums.Memory;
@@ -35,4 +36,6 @@ public class ProductResponse {
     private String rating;
     private BrandResponse brand;
     private ProductStatus productStatus;
+
+
 }
