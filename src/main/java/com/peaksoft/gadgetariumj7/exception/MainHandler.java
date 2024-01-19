@@ -18,4 +18,5 @@ public class MainHandler {
     public ExceptionResponse incorrectCodeException(IncorrectCodeException i) {
         return new ExceptionResponse(HttpStatus.FORBIDDEN, i.getClass().getName(), i.getMessage());
     }
+
 }
