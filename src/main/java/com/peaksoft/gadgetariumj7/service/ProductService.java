@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class ProductService {
         return productResponses;
     }
 
-    public ProductResponse getById(Long id, Principal principal) {
+    public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new NotFoundExcepption("There is no product with this id! <<" + id + ">>")
         );

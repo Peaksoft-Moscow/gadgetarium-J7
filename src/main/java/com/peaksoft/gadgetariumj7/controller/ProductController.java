@@ -34,8 +34,8 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{id}")
-    public ProductResponse getById(@PathVariable Long id, Principal principal) {
-        return productService.getById(id,principal);
+    public ProductResponse getById(@PathVariable Long id) {
+        return productService.getById(id);
     }
 
     @PutMapping("/updateById/{id}")
