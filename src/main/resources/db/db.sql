@@ -75,3 +75,8 @@ values ('05-01-2024', 0, 30000, 187, 1, 'WHITE', '10-09-2019', '1 year', 'GB_128
 insert into orders (amount, payment_id, user_id, address, delivery_type, image)
 values (4500, 1, 2, 'Avia St.12/3', 'PICKUP_FROM_STORE', null),
        (7800, 2, 3, 'Baytik St.42', 'DELIVERY_BY_COURIER', null);
+
+insert into baskets(quantity, price, discount,total_price,user_id)
+values (0,0.0,0,0.0,1),
+       (0,0.0,0,0.0,2),
+       (0,0.0,0,0.0,3);
