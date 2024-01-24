@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
+public class Product extends Basket{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -66,6 +66,7 @@ public class Product {
     int price;
 
     LocalDate createDate;
+    int quantity;
 
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
