@@ -23,19 +23,18 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     int quantity;
+    double price;
+    int discount;
     double totalPrice;
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "basket_products",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "basket_users",
-            joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
     User user;
-
-
 
 }
