@@ -16,14 +16,11 @@ import java.util.List;
 @Slf4j
 public class BasketController {
     final BasketService basketService;
-@GetMapping("/addToBasket/{id}")
+@PostMapping("/addToBasket/{id}")
     public BasketResponse addToBasket(@PathVariable("id")Long productId, Principal principal){
         return basketService.addToBasket(productId, principal);
     }
-    @GetMapping("/myBasket")
-    List<BasketResponse> getProductInMyBasket(Principal principal){
-     return basketService.myBasket(principal.getName());
-    }
+
 
 
 }

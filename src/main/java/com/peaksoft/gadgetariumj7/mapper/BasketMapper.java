@@ -14,22 +14,26 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class BasketMapper {
-   public  final ProductRepository productRepository;
-   public final UserRepository userRepository;
+    public final ProductRepository productRepository;
+    public final UserRepository userRepository;
 
 
-
-    public BasketResponse mapToResponse(Basket basket){
+    public BasketResponse mapToResponse(Basket basket,Product product) {
         return BasketResponse.builder()
                 .id(basket.getId())
                 .quantity(basket.getQuantity())
-                .user(basket.getUser())
+                .productResponse(mapToResponse(product))
                 .build();
     }
 
-//    public Basket mapToEntity(BasketRequest request){
-//        Basket basket = new Basket();
-//        return basket;
-//    }
+    public BasketProductResponse mapToResponse(Product product) {
+        return BasketProductResponse.builder()
+                .id(product.getId())
+                .name(product.getProductName())
+                .discount(product.getDiscount())
+                .price(product.getPrice())
+                .build();
+    }
+
 
 }
