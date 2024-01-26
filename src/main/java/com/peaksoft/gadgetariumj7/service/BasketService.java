@@ -4,6 +4,7 @@ import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.BasketMapper;
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
+import com.peaksoft.gadgetariumj7.model.dto.BasketProductResponse;
 import com.peaksoft.gadgetariumj7.model.dto.BasketResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Basket;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
@@ -36,9 +37,7 @@ public class BasketService {
 
         Product product = productRepository.findById(productId).
                 orElseThrow(() -> new NotFoundExcepption("Product not found with this Id"));
-//        if (product.getQuantity() <= 0) {
-//            throw new RuntimeException("This product is out of stock");
-//        }
+
         Basket myBasket = basketRepository.getBasketByUserid(user.getId());
         List<Product> products = new ArrayList<>();
         products.add(product);
@@ -47,11 +46,28 @@ public class BasketService {
         }
         myBasket.setProducts(products);
         myBasket.setQuantity(myBasket.getQuantity() + 1);
+        myBasket.setPrice(myBasket.getPrice()+product.getPrice());
+        myBasket.setDiscount(myBasket.getDiscount());
+        myBasket.setTotalPrice(myBasket.getPrice()% myBasket.getDiscount());
         basketRepository.save(myBasket);
         log.info("Create  a new Basket");
         return basketMapper.mapToResponse(myBasket, product);
 
 
+    }
+
+//    public List<BasketProductResponse> getAllProductsFromTheBasket(Product product){
+//        List<BasketProductResponse> basketProductResponses = new ArrayList<>();
+//        for(Basket basket : basketRepository.findAll()){
+//            basketProductResponses.add(basketMapper.mapToResponse(basket,product));
+//        }return basketProductResponses;
+//    }
+
+    public  void deleteProductFromBasketById(Long id){
+        Basket basket = basketRepository.findById(id).
+                orElseThrow(()-> new NotFoundExcepption("Product not found with this Id"));
+        basketRepository.deleteById(basket.getId());
+        log.info("Successfully deleted");
     }
 
 
