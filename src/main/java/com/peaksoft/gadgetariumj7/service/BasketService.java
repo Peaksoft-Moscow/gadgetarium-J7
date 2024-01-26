@@ -49,7 +49,7 @@ public class BasketService {
         myBasket.setDiscount(myBasket.getDiscount());
         myBasket.setTotalPrice(myBasket.getPrice() % myBasket.getDiscount());
         basketRepository.save(myBasket);
-        log.info("Create  a new Basket");
+        log.info("Create a new Basket");
         return basketMapper.mapToResponse(myBasket, product);
 
 
