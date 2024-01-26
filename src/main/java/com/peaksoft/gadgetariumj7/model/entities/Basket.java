@@ -28,13 +28,14 @@ public class Basket {
     double totalPrice;
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "basket_products",
             joinColumns = @JoinColumn(name = "basket_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> products;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     User user;
 
 }

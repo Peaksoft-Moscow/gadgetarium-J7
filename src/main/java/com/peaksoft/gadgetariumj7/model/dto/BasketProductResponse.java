@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter@Builder
+@Setter
+@Builder
 public class BasketProductResponse {
     private  Long id;
     private String name;
