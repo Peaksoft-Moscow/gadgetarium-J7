@@ -7,9 +7,11 @@ import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,45 +24,44 @@ public class MainPageService {
     public List<ProductResponse> getALlMainPage(){
         MainPageResponse mainPageResponses = new MainPageResponse();
         List<Product> newDevices = productRepository.findByStatusNewDevice();
-        newDevices.stream().map(productMapper::mapToResponse).toList();
         List<Product> sale = productRepository.findByStatusSale();
         List<Product> recommend = productRepository.findByStatusRecommend();
-        mainPageResponses.setNewDevice(newDevices);
-        mainPageResponses.setSale(sale);
-        mainPageResponses.setRecommend(recommend);
-
+        mainPageResponses.setNewDevice(newDevices.stream().map(productMapper::mapToResponse).toList());
+        mainPageResponses.setSale(sale.stream().map(productMapper::mapToResponse).toList());
+        mainPageResponses.setRecommend(recommend.stream().map(productMapper::mapToResponse).toList());
+        productRepository.save(mainPageResponses);
     }
 
-    public List<ProductResponse> getProductByStatusNewDevices() {
-        List<Product> products = productRepository.findAll();
-        List<Product> newDevices = productRepository.findByStatusNewDevice();
-        for (Product product : products) {
-            if (product.getProductStatus().equals("NEW_DEVICES")) {
-                return newDevices.stream().map(productMapper::mapToResponse).toList();
-            }
-        }
-        return newDevices.stream().map(productMapper::mapToResponse).toList();
-    }
+//    public List<ProductResponse> getProductByStatusNewDevices() {
+//        List<Product> products = productRepository.findAll();
+//        List<Product> newDevices = productRepository.findByStatusNewDevice();
+//        for (Product product : products) {
+//            if (product.getProductStatus().equals("NEW_DEVICES")) {
+//                return newDevices.stream().map(productMapper::mapToResponse).toList();
+//            }
+//        }
+//        return newDevices.stream().map(productMapper::mapToResponse).toList();
+//    }
 
-    public List<ProductResponse> getProductByStatusSale() {
-        List<Product> products = productRepository.findAll();
-        List<Product> sale = productRepository.findByStatusSale();
-        for (Product product : products) {
-            if (product.getProductStatus().equals("SALES")) {
-                return sale.stream().map(productMapper::mapToResponse).toList();
-            }
-        }
-        return sale.stream().map(productMapper::mapToResponse).toList();
-    }
+//    public List<ProductResponse> getProductByStatusSale() {
+//        List<Product> products = productRepository.findAll();
+//        List<Product> sale = productRepository.findByStatusSale();
+//        for (Product product : products) {
+//            if (product.getProductStatus().equals("SALES")) {
+//                return sale.stream().map(productMapper::mapToResponse).toList();
+//            }
+//        }
+//        return sale.stream().map(productMapper::mapToResponse).toList();
+//    }
 
-    public List<ProductResponse> getProductByStatusRecommend() {
-        List<Product> products = productRepository.findAll();
-        List<Product> recommend = productRepository.findByStatusRecommend();
-        for (Product product : products) {
-            if (product.getProductStatus().equals("RECOMMENDATIONS")) {
-                return recommend.stream().map(productMapper::mapToResponse).toList();
-            }
-        }
-        return recommend.stream().map(productMapper::mapToResponse).toList();
-    }
+//    public List<ProductResponse> getProductByStatusRecommend() {
+//        List<Product> products = productRepository.findAll();
+//        List<Product> recommend = productRepository.findByStatusRecommend();
+//        for (Product product : products) {
+//            if (product.getProductStatus().equals("RECOMMENDATIONS")) {
+//                return recommend.stream().map(productMapper::mapToResponse).toList();
+//            }
+//        }
+//        return recommend.stream().map(productMapper::mapToResponse).toList();
+//    }
 }

@@ -5,6 +5,8 @@ import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProductMapper {
     public ProductResponse mapToResponse(Product product) {
@@ -28,8 +30,6 @@ public class ProductMapper {
                 .productStatus(product.getProductStatus())
                 .build();
     }
-
-
     public Product mapToEntity(ProductRequest request) {
         Product product = new Product();
         product.setProductName(request.getName());
