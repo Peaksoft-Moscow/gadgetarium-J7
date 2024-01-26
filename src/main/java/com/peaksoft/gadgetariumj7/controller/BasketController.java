@@ -16,11 +16,16 @@ import java.util.List;
 @Slf4j
 public class BasketController {
     final BasketService basketService;
-@PostMapping("/addToBasket/{id}")
-    public BasketResponse addToBasket(@PathVariable("id")Long productId, Principal principal){
+
+    @PostMapping("/addToBasket/{id}")
+    public BasketResponse addToBasket(@PathVariable("id") Long productId, Principal principal) {
         return basketService.addToBasket(productId, principal);
     }
-
+    @DeleteMapping("/deleteById/{id}")
+    public String deleteById(@PathVariable("id")Long id){
+        basketService.deleteProductFromBasketById(id);
+        return "Successfully deleted ";
+    }
 
 
 }
