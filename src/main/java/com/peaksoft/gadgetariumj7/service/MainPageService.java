@@ -1,6 +1,7 @@
 package com.peaksoft.gadgetariumj7.service;
 
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
+import com.peaksoft.gadgetariumj7.model.dto.MainPageResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +18,18 @@ import java.util.List;
 public class MainPageService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+
+    public List<ProductResponse> getALlMainPage(){
+        MainPageResponse mainPageResponses = new MainPageResponse();
+        List<Product> newDevices = productRepository.findByStatusNewDevice();
+        newDevices.stream().map(productMapper::mapToResponse).toList();
+        List<Product> sale = productRepository.findByStatusSale();
+        List<Product> recommend = productRepository.findByStatusRecommend();
+        mainPageResponses.setNewDevice(newDevices);
+        mainPageResponses.setSale(sale);
+        mainPageResponses.setRecommend(recommend);
+
+    }
 
     public List<ProductResponse> getProductByStatusNewDevices() {
         List<Product> products = productRepository.findAll();
