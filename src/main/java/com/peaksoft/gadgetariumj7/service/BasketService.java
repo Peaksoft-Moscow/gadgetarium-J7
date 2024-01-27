@@ -55,10 +55,10 @@ public class BasketService {
 
     }
 
-//    public List<BasketResponse> getAllProductsFromTheBasket() {
+//    public BasketResponse getAllProductsFromBasket() {
 //        return basketRepository.findAll()
 //                .stream()
-//                .map(basketMapper::mapToResponse).toList();
+//                .map(basketMapper::mapToResponse)
 //    }
 //}
 

@@ -61,8 +61,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
 
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
     Basket basket;
 
     @Override
