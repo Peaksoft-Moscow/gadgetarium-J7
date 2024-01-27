@@ -29,39 +29,21 @@ public class MainPageService {
         mainPageResponses.setNewDevice(newDevices.stream().map(productMapper::mapToResponse).toList());
         mainPageResponses.setSale(sale.stream().map(productMapper::mapToResponse).toList());
         mainPageResponses.setRecommend(recommend.stream().map(productMapper::mapToResponse).toList());
-        productRepository.save(mainPageResponses);
+        return ;
     }
 
-//    public List<ProductResponse> getProductByStatusNewDevices() {
-//        List<Product> products = productRepository.findAll();
-//        List<Product> newDevices = productRepository.findByStatusNewDevice();
-//        for (Product product : products) {
-//            if (product.getProductStatus().equals("NEW_DEVICES")) {
-//                return newDevices.stream().map(productMapper::mapToResponse).toList();
-//            }
-//        }
-//        return newDevices.stream().map(productMapper::mapToResponse).toList();
-//    }
+    public List<ProductResponse> getProductByStatusNewDevices() {
+        List<Product> newDevices = productRepository.findByStatusNewDevice();
+        return newDevices.stream().map(productMapper::mapToResponse).toList();
+    }
 
-//    public List<ProductResponse> getProductByStatusSale() {
-//        List<Product> products = productRepository.findAll();
-//        List<Product> sale = productRepository.findByStatusSale();
-//        for (Product product : products) {
-//            if (product.getProductStatus().equals("SALES")) {
-//                return sale.stream().map(productMapper::mapToResponse).toList();
-//            }
-//        }
-//        return sale.stream().map(productMapper::mapToResponse).toList();
-//    }
+    public List<ProductResponse> getProductByStatusSale() {
+        List<Product> sale = productRepository.findByStatusSale();
+        return sale.stream().map(productMapper::mapToResponse).toList();
+    }
 
-//    public List<ProductResponse> getProductByStatusRecommend() {
-//        List<Product> products = productRepository.findAll();
-//        List<Product> recommend = productRepository.findByStatusRecommend();
-//        for (Product product : products) {
-//            if (product.getProductStatus().equals("RECOMMENDATIONS")) {
-//                return recommend.stream().map(productMapper::mapToResponse).toList();
-//            }
-//        }
-//        return recommend.stream().map(productMapper::mapToResponse).toList();
-//    }
+    public List<ProductResponse> getProductByStatusRecommend() {
+        List<Product> recommend = productRepository.findByStatusRecommend();
+        return recommend.stream().map(productMapper::mapToResponse).toList();
+    }
 }
