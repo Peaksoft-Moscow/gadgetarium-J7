@@ -21,7 +21,7 @@ public class MainPageService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public MainPageResponse getALlMainPage(){
+    public MainPageResponse getALlMainPage() {
         MainPageResponse mainPageResponses = new MainPageResponse();
         List<Product> newDevices = productRepository.findByStatusNewDevice();
         List<Product> sale = productRepository.findByStatusSale();

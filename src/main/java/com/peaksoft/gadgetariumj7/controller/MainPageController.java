@@ -16,6 +16,11 @@ import java.util.List;
 public class MainPageController {
     private final MainPageService mainPageService;
 
+    @GetMapping()
+    MainPageResponse getAllMainPage() {
+        return mainPageService.getALlMainPage();
+    }
+
     @GetMapping("/newDevice")
     List<ProductResponse> getProductByStatusNewDevices() {
         return mainPageService.getProductByStatusNewDevices();
@@ -29,11 +34,6 @@ public class MainPageController {
     @GetMapping("/recommend")
     List<ProductResponse> getProductByStatusRecommend() {
         return mainPageService.getProductByStatusRecommend();
-    }
-
-    @GetMapping()
-    MainPageResponse getAllMainPage() {
-        return mainPageService.getALlMainPage();
     }
 }
 

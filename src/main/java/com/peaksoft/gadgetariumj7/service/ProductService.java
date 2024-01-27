@@ -121,6 +121,4 @@ public class ProductService {
         }
         return recommend.stream().map(productMapper::mapToResponse).toList();
     }
-
-
 }
