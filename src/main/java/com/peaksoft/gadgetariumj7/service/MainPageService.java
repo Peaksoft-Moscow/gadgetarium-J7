@@ -21,7 +21,7 @@ public class MainPageService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public List<ProductResponse> getALlMainPage(){
+    public MainPageResponse getALlMainPage(){
         MainPageResponse mainPageResponses = new MainPageResponse();
         List<Product> newDevices = productRepository.findByStatusNewDevice();
         List<Product> sale = productRepository.findByStatusSale();
@@ -29,7 +29,7 @@ public class MainPageService {
         mainPageResponses.setNewDevice(newDevices.stream().map(productMapper::mapToResponse).toList());
         mainPageResponses.setSale(sale.stream().map(productMapper::mapToResponse).toList());
         mainPageResponses.setRecommend(recommend.stream().map(productMapper::mapToResponse).toList());
-        return ;
+        return mainPageResponses;
     }
 
     public List<ProductResponse> getProductByStatusNewDevices() {

@@ -12,26 +12,28 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/productStatus")
+@RequestMapping("/api/main-page")
 public class MainPageController {
     private final MainPageService mainPageService;
 
-//    @GetMapping("/newDevice")
-//    List<ProductResponse> getProductByStatusNewDevices() {
-//        return mainPageService.getProductByStatusNewDevices();
-//    }
-//
-//    @GetMapping("/sale")
-//    List<ProductResponse> getProductByStatusSale() {
-//        return mainPageService.getProductByStatusSale();
-//    }
-//
-//    @GetMapping("/recommend")
-//    List<ProductResponse> getProductByStatusRecommend() {
-//        return mainPageService.getProductByStatusRecommend();
-    @GetMapping("/byStatus")
-    List<ProductResponse> getAllMainPage(){
+    @GetMapping("/newDevice")
+    List<ProductResponse> getProductByStatusNewDevices() {
+        return mainPageService.getProductByStatusNewDevices();
+    }
+
+    @GetMapping("/sale")
+    List<ProductResponse> getProductByStatusSale() {
+        return mainPageService.getProductByStatusSale();
+    }
+
+    @GetMapping("/recommend")
+    List<ProductResponse> getProductByStatusRecommend() {
+        return mainPageService.getProductByStatusRecommend();
+    }
+
+    @GetMapping()
+    MainPageResponse getAllMainPage() {
         return mainPageService.getALlMainPage();
     }
-//    }
 }
+
