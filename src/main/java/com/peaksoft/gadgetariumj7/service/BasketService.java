@@ -71,7 +71,7 @@ public class BasketService {
         productResponse.setPrice(basket.getPrice());
         productResponse.setQuantity(basket.getQuantity());
         productResponse.setTotalPrice(basket.getTotalPrice());
-        productResponse.setProductResponses(basket.getProducts().stream().map()));
+        productResponse.setProductResponses();
 
     }
 }
