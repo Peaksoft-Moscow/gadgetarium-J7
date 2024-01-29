@@ -17,4 +17,5 @@ public class BasketResponse {
     private  int quantity;
     private double totalPrice;
     private BasketProductResponse productResponse;
+
 }

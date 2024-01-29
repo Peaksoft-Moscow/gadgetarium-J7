@@ -4,6 +4,7 @@ import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.BasketMapper;
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
+import com.peaksoft.gadgetariumj7.model.dto.BasketProductResponse;
 import com.peaksoft.gadgetariumj7.model.dto.BasketResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Basket;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
@@ -46,28 +47,31 @@ public class BasketService {
         myBasket.setProducts(products);
         myBasket.setQuantity(myBasket.getQuantity() + 1);
         myBasket.setPrice(myBasket.getPrice() + product.getPrice());
-        myBasket.setDiscount(myBasket.getDiscount());
-        myBasket.setTotalPrice(myBasket.getPrice() % myBasket.getDiscount());
+        myBasket.setDiscount(product.getDiscount() + product.getDiscount());
+        myBasket.setTotalPrice(myBasket.getTotalPrice() % product.getDiscount());
         basketRepository.save(myBasket);
         log.info("Create a new Basket");
-        return basketMapper.mapToResponse(myBasket, product);
-
-
-    }
-
-//    public BasketResponse getAllProductsFromBasket() {
-//        return basketRepository.findAll()
-//                .stream()
-//                .map(basketMapper::mapToResponse)
-//    }
-//}
-
-    public void deleteProductFromBasketById(Long id) {
-        Basket basket = basketRepository.findById(id).
-                orElseThrow(() -> new NotFoundExcepption("Product not found with this Id"));
-        basketRepository.deleteById(basket.getId());
-        log.info("Successfully deleted");
+        return basketMapper.mapToResponse(myBasket,product);
     }
 
 
+    public BasketProductResponse getProductsFromBasket(Principal principal) {
+
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal.getName()));
+        Basket basket = basketRepository.getBasketByUserid(user.getId());
+        System.out.println(basket.getId());
+        List<Product> products = basketRepository.findProductsInBasket(basket.getId());
+        System.out.println("Products");
+        System.out.println(products.isEmpty());
+        System.out.println(products.size());
+        BasketProductResponse productResponse = new BasketProductResponse();
+        productResponse.setId(basket.getId());
+        productResponse.setDiscount(basket.getDiscount());
+        productResponse.setPrice(basket.getPrice());
+        productResponse.setQuantity(basket.getQuantity());
+        productResponse.setTotalPrice(basket.getTotalPrice());
+        productResponse.setProductResponses(basket.getProducts().stream().map()));
+
+    }
 }
