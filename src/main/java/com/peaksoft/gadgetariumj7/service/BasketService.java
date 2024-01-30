@@ -49,7 +49,7 @@ public class BasketService {
         myBasket.setQuantity(myBasket.getQuantity() + 1);
         myBasket.setPrice(myBasket.getPrice() + product.getPrice());
         myBasket.setDiscount(product.getDiscount() + product.getDiscount());
-        myBasket.setTotalPrice(product.getPrice() % product.getDiscount());
+        myBasket.setTotalPrice(myBasket.getPrice() % myBasket.getDiscount());
         basketRepository.save(myBasket);
         log.info("Create a new Basket");
         return basketMapper.mapToResponse(myBasket,product);
@@ -84,7 +84,7 @@ public class BasketService {
         if (user.getBasket().getProducts().contains(product)) {
             int productCount = Collections.frequency(user.getBasket().getProducts(), product);
             user.getBasket().getProducts().removeIf(p -> p.getId().equals(productId));
-            user.getBasket().setTotalPrice(user.getBasket().getTotalPrice() - product.getPrice() * productCount);
+            user.getBasket().setTotalPrice(user.getBasket().getTotalPrice() - product.getPrice() - productCount);
 
             userRepository.save(user);
         }

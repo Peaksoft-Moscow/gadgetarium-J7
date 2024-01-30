@@ -28,9 +28,8 @@ public class BasketMapper {
         BasketProductResponse response = new BasketProductResponse();
         response.setId(product.getId());
         response.setDiscount(product.getDiscount());
-        response.setDiscount(product.getDiscount());
         response.setPrice(product.getPrice());
-      return response;
+         return response;
 //        return BasketProductResponse.builder()
 //                .id(product.getId())
 //                .name(product.getProductName())
