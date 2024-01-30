@@ -25,11 +25,17 @@ public class BasketMapper {
     }
 
     public BasketProductResponse mapToResponse(Product product) {
-        return BasketProductResponse.builder()
-                .id(product.getId())
-                .name(product.getProductName())
-                .discount(product.getDiscount())
-                .price(product.getPrice())
-                .build();
+        BasketProductResponse response = new BasketProductResponse();
+        response.setId(product.getId());
+        response.setDiscount(product.getDiscount());
+        response.setDiscount(product.getDiscount());
+        response.setPrice(product.getPrice());
+      return response;
+//        return BasketProductResponse.builder()
+//                .id(product.getId())
+//                .name(product.getProductName())
+//                .discount(product.getDiscount())
+//                .price(product.getPrice())
+//                .build();
     }
 }

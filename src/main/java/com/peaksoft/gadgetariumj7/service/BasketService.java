@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -36,7 +37,7 @@ public class BasketService {
                 orElseThrow(() -> new NotFoundExcepption("User not found with this username " + principal.getName()));
 
         Product product = productRepository.findById(productId).
-                orElseThrow(() -> new NotFoundExcepption("Product not found with this Id"));
+                orElseThrow(() -> new NotFoundExcepption("Product not found with this " + productId));
 
         Basket myBasket = basketRepository.getBasketByUserid(user.getId());
         List<Product> products = new ArrayList<>();
@@ -48,7 +49,7 @@ public class BasketService {
         myBasket.setQuantity(myBasket.getQuantity() + 1);
         myBasket.setPrice(myBasket.getPrice() + product.getPrice());
         myBasket.setDiscount(product.getDiscount() + product.getDiscount());
-        myBasket.setTotalPrice(myBasket.getTotalPrice() % product.getDiscount());
+        myBasket.setTotalPrice(product.getPrice() % product.getDiscount());
         basketRepository.save(myBasket);
         log.info("Create a new Basket");
         return basketMapper.mapToResponse(myBasket,product);
@@ -58,20 +59,50 @@ public class BasketService {
     public BasketProductResponse getProductsFromBasket(Principal principal) {
 
         User user = userRepository.findByEmail(principal.getName())
-                .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal.getName()));
-        Basket basket = basketRepository.getBasketByUserid(user.getId());
-        System.out.println(basket.getId());
-        List<Product> products = basketRepository.findProductsInBasket(basket.getId());
+                .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal));
+        Basket myBasket = basketRepository.getBasketByUserid(user.getId());
+        System.out.println(myBasket.getId());
+        List<Product> products = basketRepository.findProductsInBasket(myBasket.getId());
         System.out.println("Products");
         System.out.println(products.isEmpty());
         System.out.println(products.size());
         BasketProductResponse productResponse = new BasketProductResponse();
-        productResponse.setId(basket.getId());
-        productResponse.setDiscount(basket.getDiscount());
-        productResponse.setPrice(basket.getPrice());
-        productResponse.setQuantity(basket.getQuantity());
-        productResponse.setTotalPrice(basket.getTotalPrice());
-        productResponse.setProductResponses();
+        productResponse.setId(myBasket.getId());
+        productResponse.setDiscount(myBasket.getDiscount());
+        productResponse.setPrice(myBasket.getPrice());
+        productResponse.setQuantity(myBasket.getQuantity());
+        productResponse.setTotalPrice(myBasket.getTotalPrice());
+        productResponse.setProductResponses(products.stream().map(productMapper::mapToResponse).toList());
+        return productResponse;
+    }
 
+    public void deleteProduct(Long productId, Principal principal) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundExcepption("Product not found with this " + productId));
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundExcepption("User not found with this username " + principal));
+        if (user.getBasket().getProducts().contains(product)) {
+            int productCount = Collections.frequency(user.getBasket().getProducts(), product);
+            user.getBasket().getProducts().removeIf(p -> p.getId().equals(productId));
+            user.getBasket().setTotalPrice(user.getBasket().getTotalPrice() - product.getPrice() * productCount);
+
+            userRepository.save(user);
+        }
+    }
+    public void clearBasket(Principal principal) {
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundExcepption("User not found with this username "+ principal));
+
+        Basket myBasket = user.getBasket();
+        if (myBasket != null) {
+            myBasket.getProducts().clear();
+            myBasket.setPrice(0.0);
+            myBasket.setQuantity(0);
+            myBasket.setDiscount(0);
+            myBasket.setTotalPrice(0.0);
+            basketRepository.save(myBasket);
+        } else {
+            throw new RuntimeException("Your basket is Empty");
+        }
     }
 }

@@ -1,17 +1,15 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
+import com.peaksoft.gadgetariumj7.model.dto.BasketProductResponse;
 import com.peaksoft.gadgetariumj7.model.dto.BasketResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.service.BasketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 
 @RestController
@@ -28,17 +26,21 @@ public class BasketController {
     }
 
     @GetMapping("/findAll")
-    public List<Product>getProductFromBasket(Principal principal,Long productId){
-        Product product = productRepository.findById(productId).
-                orElseThrow(()-> new NotFoundExcepption("HGJHGJGKGK"));
-        return basketService.getProductsFromBasket(product,principal);
+    public BasketProductResponse getAllProductsInBasket(Principal principal) {
+        return basketService.getProductsFromBasket(principal);
     }
 
+    @DeleteMapping("deleteById/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long productId, Principal principal) {
+        basketService.deleteProduct(productId, principal);
+        return ResponseEntity.ok("Product successfully deleted from basket");
+    }
 
-//    @DeleteMapping("/deleteById/{id}")
-//    public String deleteById(@PathVariable("id")Long id){
-//        basketService.deleteProductFromBasketById(id);
-//        return "Successfully deleted ";
-//    }
-
+    @PostMapping("/clearBasket")
+    public ResponseEntity<String> clearBasket(Principal principal) {
+        basketService.clearBasket(principal);
+        return  ResponseEntity.ok("Your basket has been successfully emptied");
+    }
 }
+
+
