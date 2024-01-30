@@ -62,8 +62,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
 
-    @ManyToMany(mappedBy = "users")
-    List<Product> products;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "productComparison",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    List<Product> productComparison;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -97,6 +100,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setEmail(String email) {
-    }
 }

@@ -83,7 +83,7 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Delivery> deliveries;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productComparison")
     List<User> users;
 
     @ManyToOne(cascade = CascadeType.ALL)
