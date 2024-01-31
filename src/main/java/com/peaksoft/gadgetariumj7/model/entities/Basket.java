@@ -37,5 +37,4 @@ public class Basket {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
-
 }

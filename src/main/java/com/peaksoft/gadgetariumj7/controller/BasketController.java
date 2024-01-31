@@ -39,7 +39,7 @@ public class BasketController {
     @PostMapping("/clearBasket")
     public ResponseEntity<String> clearBasket(Principal principal) {
         basketService.clearBasket(principal);
-        return  ResponseEntity.ok("Your basket has been successfully emptied");
+        return ResponseEntity.ok("Your basket has been successfully emptied");
     }
 }
 

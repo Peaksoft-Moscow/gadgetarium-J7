@@ -16,7 +16,7 @@ public class BasketMapper {
     public final ProductMapper productMapper;
 
 
-    public BasketResponse mapToResponse(Basket basket,Product product) {
+    public BasketResponse mapToResponse(Basket basket, Product product) {
         return BasketResponse.builder()
                 .id(basket.getId())
                 .quantity(basket.getQuantity())
@@ -32,6 +32,6 @@ public class BasketMapper {
         response.setId(product.getId());
         response.setDiscount(product.getDiscount());
         response.setPrice(product.getPrice());
-         return response;
+        return response;
     }
 }

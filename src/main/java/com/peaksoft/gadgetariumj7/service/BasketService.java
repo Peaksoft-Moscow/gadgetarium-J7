@@ -1,6 +1,5 @@
 package com.peaksoft.gadgetariumj7.service;
 
-import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.BasketMapper;
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
@@ -40,12 +39,12 @@ public class BasketService {
                 orElseThrow(() -> new NotFoundExcepption("Product not found with this " + productId));
 
         Basket myBasket = basketRepository.getBasketByUserid(user.getId());
-        List<Product> products = new ArrayList<>();
+        List<Product> products = myBasket.getProducts();
         products.add(product);
         myBasket.setProducts(products);
         myBasket.setQuantity(myBasket.getQuantity() + 1);
         myBasket.setPrice(myBasket.getPrice() + product.getPrice());
-        myBasket.setDiscount(myBasket.getDiscount() + (product.getPrice()/100 * product.getDiscount()));
+        myBasket.setDiscount(myBasket.getDiscount() + (product.getPrice() / 100 * product.getDiscount()));
         myBasket.setTotalPrice(myBasket.getPrice() - myBasket.getDiscount());
         List<Basket> baskets = new ArrayList<>();
         baskets.add(myBasket);
@@ -62,6 +61,7 @@ public class BasketService {
 
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal));
+
         Basket myBasket = basketRepository.getBasketByUserid(user.getId());
         System.out.println(myBasket.getId());
         List<Product> products = basketRepository.findProductsInBasket(myBasket.getId());
@@ -81,14 +81,21 @@ public class BasketService {
     public void deleteProduct(Long productId, Principal principal) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundExcepption("Product not found with this " + productId));
+
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new NotFoundExcepption("User not found with this username " + principal));
-        if (user.getBasket().getProducts().contains(product)) {
-            int productCount = Collections.frequency(user.getBasket().getProducts(), product);
-            user.getBasket().getProducts().removeIf(p -> p.getId().equals(productId));
-            user.getBasket().setTotalPrice(user.getBasket().getTotalPrice() - product.getPrice() - productCount);
 
-            userRepository.save(user);
+        Basket myBasket = user.getBasket();
+        if (myBasket != null) {
+            myBasket.setQuantity(myBasket.getQuantity() - 1);
+            myBasket.setPrice(myBasket.getPrice() - product.getPrice());
+            myBasket.setDiscount(myBasket.getDiscount() - (product.getPrice() / 100 * product.getDiscount()));
+            myBasket.setTotalPrice(myBasket.getPrice() - myBasket.getDiscount());
+            List<Product> products = myBasket.getProducts();
+            products.remove(product);
+            myBasket.setProducts(products);
+            productRepository.save(product);
+            basketRepository.save(myBasket);
         }
     }
 

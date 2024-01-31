@@ -9,11 +9,11 @@ import java.util.List;
 @Getter
 @Setter
 public class BasketProductResponse {
-    private  Long id;
+    private Long id;
     private double price;
     private int discount;
-    private  double totalPrice;
-    private  int quantity;
+    private double totalPrice;
+    private int quantity;
     private List<ProductResponse> productResponses;
 
 

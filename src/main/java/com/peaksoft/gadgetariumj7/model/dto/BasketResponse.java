@@ -14,9 +14,9 @@ import java.util.List;
 @Builder
 public class BasketResponse {
     private Long id;
-    private  int quantity;
-    private  double price;
-    private  int discount;
+    private int quantity;
+    private double price;
+    private int discount;
     private double totalPrice;
     private ProductResponse productResponse;
 
