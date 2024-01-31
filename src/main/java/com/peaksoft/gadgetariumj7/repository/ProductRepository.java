@@ -12,16 +12,21 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
 
-//    @Query("select * from ")
-//    List<Product> getProductsByCategoryByDiscount(@Param("name") String categoryName);
+    @Query("select product from Product product where product.subCategory.nameOfSubCategory = ''")
+    List<Product> getSmartphones();
 
-//    @Query("")
-//    List<Product> getProductsBySmartPhoneCategories(String findAll);
+    @Query("select product from Product product where product.subCategory.nameOfSubCategory = 'Laptops and tablets'")
+    List<Product> getLapTops();
 
-//    @Query("delete from Product.id")
-//    void deleteByUserId(Long user_id);
+    @Query("select product from Product product where product.subCategory.nameOfSubCategory = 'Headphones'")
+    List<Product> getHeadPhones();
 
     @Query("select p from Product p join p.users u where u.id = p.id and p.subCategory.categoryOfSubCategory.electronicType = 'Smartphones'")
     List<Product> getProductsByCategorySmartphone();
 
+    //    @Query("delete from Product.id")
+//    void deleteByUserId(Long user_id);
+
+    //    @Query("select * from ")
+//    List<Product> getProductsByCategoryByDiscount(@Param("name") String categoryName);
 }

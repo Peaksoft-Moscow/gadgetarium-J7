@@ -24,19 +24,20 @@ public class ComparisonController {
         return comparisonService.addToComparison(productId, principal);
     }
 
-//    @GetMapping("/smartphones")
-//    public List<ProductResponse> getSmartPhones(@RequestParam(required = false) boolean difference, Principal principal) {
-//        return comparisonService.getSmartPhones(true, principal);
-//    }
+    @GetMapping("/head")
+    public List<ProductResponse> getHeadphones(){
+        return comparisonService.getHeadphones();
+    }
 
+    @GetMapping("/smartphones")
+    public List<ProductResponse> getSmartPhones() {
+        return comparisonService.getSmartPhones();
+
+    }
 //
 //    @GetMapping("/appWatch")
 //    public List<ProductResponse> getHeadphones(@RequestParam(required = false) boolean difference, Principal principal){
 //        return null;
 //    }
 //
-//    @GetMapping("/laptops")
-//    public List<ProductResponse> getLaptops(@RequestParam(required = false) boolean difference, Principal principal){
-//        return null;
-//    }
 }
