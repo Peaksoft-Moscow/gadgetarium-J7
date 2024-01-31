@@ -8,6 +8,7 @@ import com.peaksoft.gadgetariumj7.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,7 @@ public class ProductController {
     public ProductResponse createProduct(@RequestBody ProductRequest request) {
         return productService.createProduct(request);
     }
+
     @PostMapping("/createBrand")
     public BrandResponse createBrand(@RequestBody BrandRequest request) {
         return productService.createBrand(request);
@@ -32,9 +34,10 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{id}")
-    public ProductResponse getById(@PathVariable Long id){
+    public ProductResponse getById(@PathVariable Long id) {
         return productService.getById(id);
     }
+
     @PutMapping("/updateById/{id}")
     public ProductResponse updateById(@RequestBody ProductRequest request, @PathVariable("id") Long id) {
         return productService.updateProductById(id, request);
@@ -47,5 +50,9 @@ public class ProductController {
 
     }
 
+    @GetMapping("/statusRecommend")
+    List<ProductResponse> getProductByStatusRecommend() {
+        return productService.getProductByStatusRecommend();
+    }
 
 }

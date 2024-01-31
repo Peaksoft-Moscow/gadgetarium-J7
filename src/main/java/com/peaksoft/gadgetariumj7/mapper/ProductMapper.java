@@ -1,12 +1,11 @@
 package com.peaksoft.gadgetariumj7.mapper;
 
-import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
-import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
+import com.peaksoft.gadgetariumj7.model.dto.*;
 import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ProductMapper {
@@ -28,9 +27,9 @@ public class ProductMapper {
                 .characteristic(product.getCharacteristic())
                 .subCategory(product.getSubCategory())
                 .brand(mapToResponseBrand(product.getBrandOfProduct()))
+                .productStatus(product.getProductStatus())
                 .build();
     }
-
     public Product mapToEntity(ProductRequest request) {
         Product product = new Product();
         product.setProductName(request.getName());
@@ -48,6 +47,7 @@ public class ProductMapper {
         product.setCharacteristic(request.getCharacteristic());
         product.setFeedBack(request.getFeedback());
         product.setOperationSystem(request.getOperationSystem());
+        product.setProductStatus(request.getProductStatus());
         return product;
     }
 
