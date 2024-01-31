@@ -20,7 +20,10 @@ public class BasketMapper {
         return BasketResponse.builder()
                 .id(basket.getId())
                 .quantity(basket.getQuantity())
-                .productResponse(mapToResponse(product))
+                .price(basket.getPrice())
+                .discount(basket.getDiscount())
+                .totalPrice(basket.getTotalPrice())
+                .productResponse(productMapper.mapToResponse(product))
                 .build();
     }
 
@@ -30,11 +33,5 @@ public class BasketMapper {
         response.setDiscount(product.getDiscount());
         response.setPrice(product.getPrice());
          return response;
-//        return BasketProductResponse.builder()
-//                .id(product.getId())
-//                .name(product.getProductName())
-//                .discount(product.getDiscount())
-//                .price(product.getPrice())
-//                .build();
     }
 }

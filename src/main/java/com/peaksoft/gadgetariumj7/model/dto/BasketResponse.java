@@ -15,7 +15,9 @@ import java.util.List;
 public class BasketResponse {
     private Long id;
     private  int quantity;
+    private  double price;
+    private  int discount;
     private double totalPrice;
-    private BasketProductResponse productResponse;
+    private ProductResponse productResponse;
 
 }

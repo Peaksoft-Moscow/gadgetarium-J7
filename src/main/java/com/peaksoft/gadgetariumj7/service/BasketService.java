@@ -42,17 +42,19 @@ public class BasketService {
         Basket myBasket = basketRepository.getBasketByUserid(user.getId());
         List<Product> products = new ArrayList<>();
         products.add(product);
-        if (myBasket.getProducts().contains(product)) {
-            throw new IncorrectCodeException("");
-        }
         myBasket.setProducts(products);
         myBasket.setQuantity(myBasket.getQuantity() + 1);
         myBasket.setPrice(myBasket.getPrice() + product.getPrice());
-        myBasket.setDiscount(product.getDiscount() + product.getDiscount());
-        myBasket.setTotalPrice(myBasket.getPrice() % myBasket.getDiscount());
+        myBasket.setDiscount(myBasket.getDiscount() + (product.getPrice()/100 * product.getDiscount()));
+        myBasket.setTotalPrice(myBasket.getPrice() - myBasket.getDiscount());
+        List<Basket> baskets = new ArrayList<>();
+        baskets.add(myBasket);
+        myBasket.setProducts(products);
+        product.setBaskets(baskets);
+        productRepository.save(product);
         basketRepository.save(myBasket);
         log.info("Create a new Basket");
-        return basketMapper.mapToResponse(myBasket,product);
+        return basketMapper.mapToResponse(myBasket, product);
     }
 
 
@@ -89,9 +91,10 @@ public class BasketService {
             userRepository.save(user);
         }
     }
+
     public void clearBasket(Principal principal) {
         User user = userRepository.findByEmail(principal.getName())
-                .orElseThrow(() -> new NotFoundExcepption("User not found with this username "+ principal));
+                .orElseThrow(() -> new NotFoundExcepption("User not found with this username " + principal));
 
         Basket myBasket = user.getBasket();
         if (myBasket != null) {
