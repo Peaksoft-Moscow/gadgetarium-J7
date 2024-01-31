@@ -64,9 +64,6 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user")
     Basket basket;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
-    Basket basket;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
