@@ -1,12 +1,12 @@
 package com.peaksoft.gadgetariumj7.mapper;
 
-import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
-import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
+import com.peaksoft.gadgetariumj7.model.dto.*;
 import com.peaksoft.gadgetariumj7.model.entities.Brand;
+import com.peaksoft.gadgetariumj7.model.entities.Favorites;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ProductMapper {

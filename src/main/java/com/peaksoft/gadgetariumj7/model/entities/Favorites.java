@@ -26,4 +26,12 @@ public class Favorites {
             joinColumns = @JoinColumn(name = "favorite_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List <Product> products;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User user;
+    int quantity;
+    double price;
+    int discount;
+    double totalPrice;
 }

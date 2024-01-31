@@ -58,6 +58,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     List<Order> orders;
+    @OneToOne(cascade = CascadeType .ALL, mappedBy = "user")
+    Favorites favorites;
 
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
