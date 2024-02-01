@@ -4,7 +4,6 @@ import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.FavoritesMapper;
 import com.peaksoft.gadgetariumj7.model.dto.FavoritesResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.*;
 import com.peaksoft.gadgetariumj7.repository.FavoritesRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
@@ -24,7 +23,6 @@ import java.util.List;
 public class FavoriteService {
     private final ProductRepository productRepository;
     private final FavoritesRepository favoritesRepository;
-    private final SubCategoryRepository subCategoryRepository;
     private final FavoritesMapper favoritesMapper;
     private final UserRepository userRepository;
 
@@ -36,10 +34,10 @@ public class FavoriteService {
                 orElseThrow(() -> new NotFoundExcepption("Product not found"));
 
         Favorites favorites = favoritesRepository.getFavoritesByUserId(user.getId());
-        List<Product> products = new ArrayList<>();
+        List<Product> products = favorites.getProducts();
         products.add(product);
-        if (favorites.getProducts().contains(product)){
-            throw new IncorrectCodeException("");
+        if (favorites.getProducts().contains(products)){
+            throw new IncorrectCodeException("already in favorites ");
         }
         favorites.setProducts(products);
         favorites.setQuantity(favorites.getQuantity());
