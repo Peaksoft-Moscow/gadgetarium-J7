@@ -24,7 +24,6 @@ import java.util.Map;
 public class AuthController {
 
     AuthService authService;
-    UserRepository userRepository;
 
     @PostMapping("/sign-up")
     public ResponseEntity<AuthResponse> signUp(@RequestBody @Valid AuthRequest request) {
