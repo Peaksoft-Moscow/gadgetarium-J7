@@ -19,9 +19,9 @@ public class FavoritesController {
     public FavoritesResponse addToFavorites(@PathVariable("id") Long productId, Principal principal){
         return favoriteService.addToFavorites(productId, principal);
     }
-    @DeleteMapping("/deleteFromFavorites/{id}")
-    public String deleteFavoritesById(@PathVariable("id") Long id){
-        favoriteService.deleteFavoritesById(id);
-        return "deleted";
-    }
+//    @DeleteMapping("/deleteFromFavorites/{id}")
+//    public String deleteFavoritesById(@PathVariable("id") Long productId, Principal principal){
+//        favoriteService.deleteFromFavorites(productId, principal);
+//        return "deleted";
+//    }
 }

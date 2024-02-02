@@ -36,7 +36,7 @@ public class FavoriteService {
         Favorites favorites = favoritesRepository.getFavoritesByUserId(user.getId());
         List<Product> products = favorites.getProducts();
         products.add(product);
-        if (favorites.getProducts().contains(products)){
+        if (favorites.getProducts().contains(products)) {
             throw new IncorrectCodeException("already in favorites ");
         }
         favorites.setProducts(products);
@@ -49,11 +49,17 @@ public class FavoriteService {
         return favoritesMapper.mapToResponse(favorites, product);
     }
 
-    public void deleteFavoritesById(Long id) {
-        Favorites favorites = favoritesRepository.findById(id).orElseThrow(
-                () -> new NotFoundExcepption("There is no favorites with this id! <<" + id + ">>")
-        );
-        favoritesRepository.deleteById(favorites.getId());
-        log.info("Deleted");
+    public void deleteFromFavorites(Long productId, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).
+                orElseThrow(() -> new NotFoundExcepption("User not found"));
+
+        Product product = productRepository.findById(productId).
+                orElseThrow(() -> new NotFoundExcepption("Product not found"));
+        Favorites favorites = user.getFavorites();
+        List<Product> products = favorites.getProducts();
+        products.remove(product);
+        favorites.setProducts(products);
+        productRepository.save(product);
+        favoritesRepository.save(favorites);
     }
 }
