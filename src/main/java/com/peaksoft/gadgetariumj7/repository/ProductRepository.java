@@ -30,7 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("""
             SELECT product FROM Product  product WHERE
             product.brandOfProduct.brandName IN :brand OR
-            product.price IN :price AND  product.price BETWEEN  500 AND 200000 OR
+            product.price IN :price AND  product.price BETWEEN  500 AND 205000 OR
             CAST(product.color AS string)  IN :color OR
             CAST(product.memory AS string) IN :memory OR
             CAST(product.operationMemory AS string) IN :operationMemory
@@ -42,3 +42,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("memory") List<String> memories,
             @Param("operationMemory") List<String> operationMemory);
 }
+

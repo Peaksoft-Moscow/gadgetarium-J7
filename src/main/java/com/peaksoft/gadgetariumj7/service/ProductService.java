@@ -138,4 +138,16 @@ public class ProductService {
           List<Product> attribute = productRepository.productFilter(brands,prices,colors,memories,operationMemory);
         return attribute.stream().map(productMapper::mapToResponse).toList();
     }
+
+    public List<Product> resetTheFilter(
+            @Param("brand")List<String> brands,
+            @Param("price")List<Integer> prices,
+            @Param("color")List<String> colors,
+            @Param("memory") List<String> memories,
+            @Param("operationMemory") List<String> operationMemory
+    ){
+        List <Product> products= productRepository.productFilter(brands,prices,colors,memories,operationMemory);
+        products.clear();
+        return resetTheFilter(brands,prices,colors,memories,operationMemory);
+    }
 }
