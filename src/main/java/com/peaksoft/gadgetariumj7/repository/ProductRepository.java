@@ -35,12 +35,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             CAST(product.memory AS string) IN :memory OR
             CAST(product.operationMemory AS string) IN :operationMemory
             """)
-    List<Product> findProductsByAttributes(
+    List<Product> productFilter(
             @Param("brand") List<String> brands,
             @Param("price") List<Integer> prices,
             @Param("color") List<String> colors,
             @Param("memory") List<String> memories,
-            @Param("operationMemory") List<String> operationMemory
-
-    );
+            @Param("operationMemory") List<String> operationMemory);
 }

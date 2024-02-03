@@ -64,15 +64,15 @@ public class ProductController {
         return productService.getProductByStatusRecommend();
     }
 
-    @GetMapping("/attribute")
-    public List<ProductResponse> getProductByAttribute(
+    @GetMapping("/filter")
+    public List<ProductResponse> getFilteredProduct(
             @RequestParam(value = "brand", required = false) List<String> brand,
             @RequestParam(value = "price",required = false) List<Integer> prices,
             @RequestParam(value = "color", required = false) List<String> color,
             @RequestParam(value = "memory",required = false) List<String>memories,
             @RequestParam(value = "operationMemory",required = false) List<String> operationMemory
     ) {
-        return productService.getProductsByAttribute(brand,prices, color,memories,operationMemory);
+        return productService.getFilteredProduct(brand,prices, color,memories,operationMemory);
     }
 }
 
