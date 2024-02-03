@@ -1,19 +1,14 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
 import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
-import com.peaksoft.gadgetariumj7.model.enums.Color;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,6 +67,16 @@ public class ProductController {
             @RequestParam(value = "operationMemory",required = false) List<String> operationMemory
     ) {
         return productService.getFilteredProduct(brand,prices, color,memories,operationMemory);
+    }
+    @GetMapping("/resetFilter")
+    public List<Product> resetFilter(
+            @RequestParam(value = "brand", required = false) List<String> brand,
+            @RequestParam(value = "price",required = false) List<Integer> prices,
+            @RequestParam(value = "color", required = false) List<String> color,
+            @RequestParam(value = "memory",required = false) List<String>memories,
+            @RequestParam(value = "operationMemory",required = false) List<String> operationMemory
+    ){
+        return productService.resetTheFilter(brand,prices,color,memories,operationMemory);
     }
 }
 
