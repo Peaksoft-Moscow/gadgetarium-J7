@@ -3,7 +3,10 @@ package com.peaksoft.gadgetariumj7.service;
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.mapper.FavoritesMapper;
+import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
+import com.peaksoft.gadgetariumj7.model.dto.FavoritesListResponse;
 import com.peaksoft.gadgetariumj7.model.dto.FavoritesResponse;
+import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.*;
 import com.peaksoft.gadgetariumj7.repository.FavoritesRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
@@ -22,6 +25,7 @@ import java.util.List;
 @Slf4j
 public class FavoriteService {
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
     private final FavoritesRepository favoritesRepository;
     private final FavoritesMapper favoritesMapper;
     private final UserRepository userRepository;
@@ -49,6 +53,28 @@ public class FavoriteService {
         return favoritesMapper.mapToResponse(favorites, product);
     }
 
+    public FavoritesListResponse getAllFavorites(Principal principal) {
+
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal));
+
+        Favorites favorites = favoritesRepository.getFavoritesByUserId(user.getId());
+//        System.out.println(favorites.getId());
+        List<Product> products = favoritesRepository.findProductsInFavorites(favorites.getId());
+//        System.out.println("Products");
+//        System.out.println(products.isEmpty());
+//        System.out.println(products.size());
+        FavoritesListResponse productResponse = new FavoritesListResponse();
+        productResponse.setId(favorites.getId());
+        productResponse.setQuantity(favorites.getQuantity());
+        productResponse.setPrice(favorites.getPrice());
+        productResponse.setDiscount(favorites.getDiscount());
+        productResponse.setTotalPrice(favorites.getTotalPrice());
+        productResponse.setProductResponses(products.stream().map(productMapper::mapToResponse).toList());
+        return productResponse;
+    }
+
+
     public void deleteFromFavorites(Long productId, Principal principal) {
         User user = userRepository.findByEmail(principal.getName()).
                 orElseThrow(() -> new NotFoundExcepption("User not found"));
@@ -62,4 +88,18 @@ public class FavoriteService {
         productRepository.save(product);
         favoritesRepository.save(favorites);
     }
+
+    public void deleteAllFavorites(Principal principal) {
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundExcepption("User not found with this username " + principal));
+
+        Favorites favorites = user.getFavorites();
+        if (favorites != null) {
+            favorites.getProducts().clear();
+            favoritesRepository.save(favorites);
+        } else {
+            throw new RuntimeException("Your favorites list is empty");
+        }
+    }
+
 }
