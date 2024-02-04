@@ -59,11 +59,7 @@ public class FavoriteService {
                 .orElseThrow(() -> new NotFoundExcepption("User not found with " + principal));
 
         Favorites favorites = favoritesRepository.getFavoritesByUserId(user.getId());
-//        System.out.println(favorites.getId());
         List<Product> products = favoritesRepository.findProductsInFavorites(favorites.getId());
-//        System.out.println("Products");
-//        System.out.println(products.isEmpty());
-//        System.out.println(products.size());
         FavoritesListResponse productResponse = new FavoritesListResponse();
         productResponse.setId(favorites.getId());
         productResponse.setQuantity(favorites.getQuantity());

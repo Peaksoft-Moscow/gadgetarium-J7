@@ -1,10 +1,8 @@
 package com.peaksoft.gadgetariumj7.mapper;
 
 import com.peaksoft.gadgetariumj7.model.dto.FavoritesResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Favorites;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +20,4 @@ public class FavoritesMapper {
                 .productResponse(productMapper.mapToResponse(product))
                 .build();
     }
-
-//    public Favorites mapToEntity(FavoritesRequest request) {
-//        Favorites favorites = new Favorites();
-//        favorites.setId(request.getId());
-//        return favorites;
-//    }
 }
