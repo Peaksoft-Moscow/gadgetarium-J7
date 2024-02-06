@@ -50,9 +50,4 @@ public class ProductController {
 
     }
 
-    @GetMapping("/statusRecommend")
-    List<ProductResponse> getProductByStatusRecommend() {
-        return productService.getProductByStatusRecommend();
-    }
-
 }
