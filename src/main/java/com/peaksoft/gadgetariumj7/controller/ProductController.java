@@ -9,6 +9,7 @@ import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +52,6 @@ public class ProductController {
     public String deleteById(@PathVariable("id") Long id) {
         productService.deleteProductById(id);
         return "deleted";
-
     }
 
     @GetMapping("/statusRecommend")
@@ -70,14 +70,8 @@ public class ProductController {
         return productService.getFilteredProduct(brand,prices, color,memories,operationMemory);
     }
     @GetMapping("/resetFilter")
-    public List<Product> resetFilter(
-            @RequestParam(value = "brand", required = false) List<String> brand,
-            @RequestParam(value = "price",required = false) List<Integer> prices,
-            @RequestParam(value = "color", required = false) List<String> color,
-            @RequestParam(value = "memory",required = false) List<String>memories,
-            @RequestParam(value = "operationMemory",required = false) List<String> operationMemory
-    ){
-        return productService.resetTheFilter(brand,prices,color,memories,operationMemory);
+    public List<ProductResponse> resetFilter(){
+        return productService.getAllProducts();
     }
 }
 

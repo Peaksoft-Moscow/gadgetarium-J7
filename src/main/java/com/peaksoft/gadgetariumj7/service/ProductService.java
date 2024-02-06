@@ -9,18 +9,13 @@ import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.model.entities.SubCategory;
-import com.peaksoft.gadgetariumj7.model.enums.Color;
-import com.peaksoft.gadgetariumj7.model.enums.Memory;
-import com.peaksoft.gadgetariumj7.model.enums.OperationMemory;
 import com.peaksoft.gadgetariumj7.repository.BrandRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.repository.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,21 +128,9 @@ public class ProductService {
             @Param("price")List<Integer> prices,
             @Param("color")List<String> colors,
             @Param("memory") List<String> memories,
-            @Param("operationMemory") List<String> operationMemory
-    ){
+            @Param("operationMemory") List<String> operationMemory){
           List<Product> attribute = productRepository.productFilter(brands,prices,colors,memories,operationMemory);
         return attribute.stream().map(productMapper::mapToResponse).toList();
     }
 
-    public List<Product> resetTheFilter(
-            @Param("brand")List<String> brands,
-            @Param("price")List<Integer> prices,
-            @Param("color")List<String> colors,
-            @Param("memory") List<String> memories,
-            @Param("operationMemory") List<String> operationMemory
-    ){
-        List <Product> products= productRepository.productFilter(brands,prices,colors,memories,operationMemory);
-        products.clear();
-        return resetTheFilter(brands,prices,colors,memories,operationMemory);
-    }
 }
