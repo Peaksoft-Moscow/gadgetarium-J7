@@ -88,5 +88,4 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     SubCategory subCategory;
-
 }
