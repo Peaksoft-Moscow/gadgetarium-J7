@@ -53,11 +53,6 @@ public class ProductController {
          return "deleted";
     }
 
-    @GetMapping("/statusRecommend")
-    List<ProductResponse> getProductByStatusRecommend() {
-        return productService.getProductByStatusRecommend();
-    }
-
     @GetMapping("/filter")
     public List<ProductResponse> getFilteredProduct(
             @RequestParam(value = "brand", required = false) List<String> brand,
