@@ -65,13 +65,18 @@ values ('Apple'),
 insert into products (create_date, discount, price, weight, brand_id, color, date_of_release, guarantee, memory,
                       operation_memory, operation_system,
                       operation_system_num, processor, product_name, product_status, rating, screen, sim_card)
-values ('05-01-2024', 0, 30000, 187, 1, 'WHITE', '10-09-2019', '1 year', 'GB_128', 'GB_8', 'IOS', '17',
+values ('05-01-2024', 10, 30000, 187, 1, 'WHITE', '10-09-2019', '1 year', 'GB_128', 'GB_8', 'IOS', '17',
         'Apple A13 Bionic', 'Iphone 11',
         'BY_REDUCING_THE_PRICE', '-', '1792×828', 'nano-SIM / eSIM'),
-       ('05-01-2024', 0, 60000, 170, 2, 'GREY', '01-02-2023', '2 year', 'GB_512', 'GB_8', 'ANDROID', '14',
+       ('05-01-2024', 20, 60000, 170, 2, 'GREY', '01-02-2023', '2 year', 'GB_512', 'GB_8', 'ANDROID', '14',
         ' Snapdragon 8 Gen 2 for Galaxy',
         'Samsung S23+', 'NEW_DEVICES', '4', '2340×1080', 'nano-SIM / eSIM');
 
 insert into orders (amount, payment_id, user_id, address, delivery_type, image)
 values (4500, 1, 2, 'Avia St.12/3', 'PICKUP_FROM_STORE', null),
        (7800, 2, 3, 'Baytik St.42', 'DELIVERY_BY_COURIER', null);
+
+insert into baskets(quantity, price, discount, total_price, user_id)
+values (0, 0.0, 0, 0.0, 1),
+       (0, 0.0, 0, 0.0, 2),
+       (0, 0.0, 0, 0.0, 3);

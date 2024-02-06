@@ -61,6 +61,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
+    @OneToOne(mappedBy = "user")
+    Basket basket;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
