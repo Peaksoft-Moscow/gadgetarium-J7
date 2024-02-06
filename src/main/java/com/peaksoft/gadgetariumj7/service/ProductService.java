@@ -132,5 +132,4 @@ public class ProductService {
           List<Product> attribute = productRepository.productFilter(brands,prices,colors,memories,operationMemory);
         return attribute.stream().map(productMapper::mapToResponse).toList();
     }
-
 }
