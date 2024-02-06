@@ -36,6 +36,4 @@ public class ProductResponse {
     private String rating;
     private BrandResponse brand;
     private ProductStatus productStatus;
-
-
 }
