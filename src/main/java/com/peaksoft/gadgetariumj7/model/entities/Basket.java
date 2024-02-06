@@ -27,7 +27,6 @@ public class Basket {
     int discount;
     double totalPrice;
 
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "basket_products",
             joinColumns = @JoinColumn(name = "basket_id"),
@@ -37,5 +36,4 @@ public class Basket {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
-
 }
