@@ -9,9 +9,5 @@ import java.util.List;
 @Setter
 public class FavoritesListResponse {
     private Long id;
-    private double price;
-    private int discount;
-    private double totalPrice;
-    private int quantity;
     private List<ProductResponse> productResponses;
 }

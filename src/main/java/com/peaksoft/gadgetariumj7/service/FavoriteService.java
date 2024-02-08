@@ -44,10 +44,6 @@ public class FavoriteService {
             throw new IncorrectCodeException("already in favorites ");
         }
         favorites.setProducts(products);
-        favorites.setQuantity(favorites.getQuantity());
-        favorites.setPrice(favorites.getPrice());
-        favorites.setDiscount(favorites.getDiscount());
-        favorites.setTotalPrice(favorites.getTotalPrice());
         favoritesRepository.save(favorites);
         log.info("added favorites");
         return favoritesMapper.mapToResponse(favorites, product);
@@ -62,10 +58,6 @@ public class FavoriteService {
         List<Product> products = favoritesRepository.findProductsInFavorites(favorites.getId());
         FavoritesListResponse productResponse = new FavoritesListResponse();
         productResponse.setId(favorites.getId());
-        productResponse.setQuantity(favorites.getQuantity());
-        productResponse.setPrice(favorites.getPrice());
-        productResponse.setDiscount(favorites.getDiscount());
-        productResponse.setTotalPrice(favorites.getTotalPrice());
         productResponse.setProductResponses(products.stream().map(productMapper::mapToResponse).toList());
         return productResponse;
     }

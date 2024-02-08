@@ -30,8 +30,4 @@ public class Favorites {
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
-    int quantity;
-    double price;
-    int discount;
-    double totalPrice;
 }

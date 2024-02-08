@@ -13,10 +13,6 @@ public class FavoritesMapper {
     public FavoritesResponse mapToResponse(Favorites favorites, Product product) {
         return FavoritesResponse.builder()
                 .id(favorites.getId())
-                .quantity(favorites.getQuantity())
-                .price(favorites.getPrice())
-                .discount(favorites.getDiscount())
-                .totalPrice(favorites.getTotalPrice())
                 .productResponse(productMapper.mapToResponse(product))
                 .build();
     }

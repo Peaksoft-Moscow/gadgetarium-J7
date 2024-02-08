@@ -12,9 +12,5 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FavoritesResponse {
     Long id;
-    int quantity;
-    double price;
-    int discount;
-    double totalPrice;
     ProductResponse productResponse;
 }
