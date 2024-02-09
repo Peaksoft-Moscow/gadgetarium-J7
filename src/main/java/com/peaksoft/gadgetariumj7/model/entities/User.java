@@ -64,8 +64,8 @@ public class User implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "productComparison",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> productComparison;
 
     @Override

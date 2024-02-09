@@ -1,5 +1,6 @@
 package com.peaksoft.gadgetariumj7.controller;
 
+import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.service.ComparisonService;
 import lombok.AccessLevel;
@@ -24,20 +25,23 @@ public class ComparisonController {
         return comparisonService.addToComparison(productId, principal);
     }
 
-    @GetMapping("/head")
-    public List<ProductResponse> getHeadphones(){
-        return comparisonService.getHeadphones();
+    @GetMapping("/product/{id}")
+    public List<ProductResponse> getProductByUserId(@PathVariable Long id){
+        return comparisonService.getProductId(id);
     }
 
     @GetMapping("/smartphones")
     public List<ProductResponse> getSmartPhones() {
         return comparisonService.getSmartPhones();
-
     }
-//
-//    @GetMapping("/appWatch")
-//    public List<ProductResponse> getHeadphones(@RequestParam(required = false) boolean difference, Principal principal){
-//        return null;
-//    }
-//
+
+    @GetMapping("/head")
+    public List<ProductResponse> getHeadphones(){
+        return comparisonService.getHeadphones();
+    }
+
+    @GetMapping("/laptops")
+    public List<ProductResponse> getLaptops(){
+        return comparisonService.getLaptops();
+    }
 }
