@@ -13,6 +13,7 @@ import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
@@ -20,9 +21,10 @@ import java.util.List;
 
 @Configuration
 @SecurityScheme(name = "Authorization",
-        description = "Login with JWT-token",
-        scheme = "Bearer",
+        description = "JWT auth description",
+        scheme = "bearer",
         type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER)
 public class SwaggerConfig {
     private static final String CONTROLLER_PACKAGE = "your.controller.package";
@@ -41,8 +43,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(CONTROLLER_PACKAGE))
                 .paths(PathSelectors.any()).build()
-                .apiInfo(buildApiInfo()).securitySchemes(List.of(buildApiKey()));
-//                .securityContexts(Collections.singletonList(buildSecurityContext()));
+                .apiInfo(buildApiInfo()).securitySchemes(List.of(buildApiKey()))
+                .securityContexts(Collections.singletonList(buildSecurityContext()));
     }
 
     private ApiInfo buildApiInfo() {
@@ -60,9 +62,11 @@ public class SwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
         return List.of(new SecurityReference(TOKEN_ACCESS_NAME, authorizationScopes));
     }
+    private SecurityContext buildSecurityContext(){
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .build();
+    }
 
-//    private SecurityContext buildSecurityContext() {
-//        return SecurityContext.builder()
-//                .securityReferences(defaultAuth()).build();
-//    }
+
 }

@@ -4,8 +4,9 @@ import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
 import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
-import com.peaksoft.gadgetariumj7.service.AuthService;
-import io.swagger.annotations.ApiOperation;
+import com.peaksoft.gadgetariumj7.service.AuthService;;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,34 +24,37 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Tag(name = "Auth",description = "Auth Service")
+@Tag(name = "Auth")
 @SecurityRequirement(name = "Authorization")
 public class AuthController {
 
     AuthService authService;
 
-    @ApiOperation("Sign up User")
     @PostMapping("/sign-up")
     public ResponseEntity<AuthResponse> signUp(@RequestBody @Valid AuthRequest request) {
         AuthResponse response = authService.save(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-    @ApiOperation("Sign up User with Google")
+
+    @Operation(description = "Sign up User with Google")
     @GetMapping("/with-google")
     public Map<String, Object> registerWithGoogle(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         return authService.saveWithGoogle(oAuth2AuthenticationToken);
     }
-    @ApiOperation("Sign in User")
+
+    @Operation(description = "Sign in User")
     @PostMapping("/sign-in")
     public LoginResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
-    @ApiOperation("Forgot password")
+
+    @Operation(description = "Forgot password")
     @PutMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
         return new ResponseEntity<>(authService.forgotPassword(email), HttpStatus.CREATED);
     }
-    @ApiOperation("Set password")
+
+    @Operation(description = "Set password")
     @PutMapping("/set-password")
     public ResponseEntity<String> setPassword(@RequestParam String email, @RequestParam String resetCode, @RequestParam String newPassword, @RequestParam String confirmPassword) {
         return new ResponseEntity<>(authService.setPassword(email, resetCode, newPassword, confirmPassword), HttpStatus.CREATED);
