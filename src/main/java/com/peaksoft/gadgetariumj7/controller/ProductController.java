@@ -49,9 +49,4 @@ public class ProductController {
          return "deleted";
     }
 
-    @GetMapping("/statusRecommend")
-    List<ProductResponse> getProductByStatusRecommend() {
-        return productService.getProductByStatusRecommend();
-    }
-
 }

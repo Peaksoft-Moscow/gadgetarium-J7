@@ -67,7 +67,6 @@ public class Product {
 
     LocalDate createDate;
 
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     List<Basket> baskets;
 
@@ -89,5 +88,4 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     SubCategory subCategory;
-
 }

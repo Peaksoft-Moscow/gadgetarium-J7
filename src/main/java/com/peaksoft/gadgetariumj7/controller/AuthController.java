@@ -47,7 +47,7 @@ public class AuthController {
     }
 
     @PutMapping("/set-password")
-    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestParam String resetCode,@RequestParam String newPassword, @RequestParam String confirmPassword) {
-        return new ResponseEntity<>(authService.setPassword(email,resetCode, newPassword, confirmPassword), HttpStatus.CREATED);
+    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestParam String resetCode, @RequestParam String newPassword, @RequestParam String confirmPassword) {
+        return new ResponseEntity<>(authService.setPassword(email, resetCode, newPassword, confirmPassword), HttpStatus.CREATED);
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "baskets")
+@Table(name = "deliveries")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Delivery {
 

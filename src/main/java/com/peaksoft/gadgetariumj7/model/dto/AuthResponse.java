@@ -1,4 +1,5 @@
 package com.peaksoft.gadgetariumj7.model.dto;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

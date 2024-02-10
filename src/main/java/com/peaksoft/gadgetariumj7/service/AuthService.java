@@ -2,7 +2,7 @@ package com.peaksoft.gadgetariumj7.service;
 
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
-import com.peaksoft.gadgetariumj7.model.entities.Favorites;
+import com.peaksoft.gadgetariumj7.model.entities.Basket;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -51,9 +51,9 @@ public class AuthService {
         user.setCreateDate(LocalDate.now());
         log.info("User is created");
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        Favorites favorites = new Favorites();
-        user.setFavorites(favorites);
-        favorites.setUser(user);
+        Basket basket = new Basket();
+        user.setBasket(basket);
+        basket.setUser(user);
         userRepository.save(user);
         return authMapper.mapToUserResponse(user);
     }
