@@ -5,8 +5,6 @@ import com.peaksoft.gadgetariumj7.model.entities.Brand;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ProductMapper {
     public ProductResponse mapToResponse(Product product) {
