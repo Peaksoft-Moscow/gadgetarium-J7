@@ -37,6 +37,7 @@ public class ComparisonService {
         return productMapper.mapToResponse(product);
     }
 
+
     public List<ProductResponse> getProductId(Long id) {
         List<Product> getProductId = productRepository.getProductId(id);
         return getProductResponse(getProductId);
@@ -45,7 +46,7 @@ public class ComparisonService {
     public List<ProductResponse> getMyComparisonProduct(Principal principal) {
         User user = userRepository.findByEmail(principal.getName()).
                 orElseThrow(() -> new RuntimeException("not found User" + principal.getName()));
-
+        return null;
     }
 
     public List<ProductResponse> getSmartPhones() {
