@@ -9,6 +9,7 @@ import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,9 +49,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public String deleteById(@PathVariable("id")Long id){
-         productService.deleteProductById(id);
-         return "deleted";
+    public String deleteById(@PathVariable("id") Long id) {
+        productService.deleteProductById(id);
+        return "deleted";
     }
 
     @GetMapping("/filter")
