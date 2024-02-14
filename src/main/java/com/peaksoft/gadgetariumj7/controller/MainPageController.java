@@ -32,11 +32,13 @@ public class MainPageController {
     List<ProductResponse> getProductByStatusNewDevices() {
         return mainPageService.getProductByStatusNewDevices();
     }
+
     @Operation(summary = "products by sale")
     @GetMapping("/sale")
     List<ProductResponse> getProductByStatusSale() {
         return mainPageService.getProductByStatusSale();
     }
+
     @Operation(summary = "products by recommend")
     @GetMapping("/recommend")
     List<ProductResponse> getProductByStatusRecommend() {

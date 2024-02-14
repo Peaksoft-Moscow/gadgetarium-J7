@@ -30,18 +30,21 @@ public class BasketController {
     public BasketResponse addToBasket(@PathVariable("id") Long productId, Principal principal) {
         return basketService.addToBasket(productId, principal);
     }
+
     @Operation(description = "Find All Products")
     @GetMapping("/findAll")
     public BasketProductResponse getAllProductsInBasket(Principal principal) {
         return basketService.getProductsFromBasket(principal);
     }
+
     @Operation(summary = "Delete product by Id")
     @DeleteMapping("deleteById/{id}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Long productId, Principal principal) {
         basketService.deleteProduct(productId, principal);
         return ResponseEntity.ok("Product successfully deleted from basket");
     }
-    @Operation(summary= "Clear the Basket")
+
+    @Operation(summary = "Clear the Basket")
     @PostMapping("/clearBasket")
     public ResponseEntity<String> clearBasket(Principal principal) {
         basketService.clearBasket(principal);
