@@ -62,11 +62,10 @@ public class SwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
         return List.of(new SecurityReference(TOKEN_ACCESS_NAME, authorizationScopes));
     }
-    private SecurityContext buildSecurityContext(){
+
+    private SecurityContext buildSecurityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .build();
     }
-
-
 }

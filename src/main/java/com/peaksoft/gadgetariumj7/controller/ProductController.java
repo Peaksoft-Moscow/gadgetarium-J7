@@ -39,16 +39,19 @@ public class ProductController {
     public List<ProductResponse> getAll() {
         return productService.getAllProducts();
     }
+
     @Operation(summary = "get products by Id")
     @GetMapping("/getById/{id}")
     public ProductResponse getById(@PathVariable Long id) {
         return productService.getById(id);
     }
+
     @Operation(summary = "update product by Id")
     @PutMapping("/updateById/{id}")
     public ProductResponse updateById(@RequestBody ProductRequest request, @PathVariable("id") Long id) {
         return productService.updateProductById(id, request);
     }
+
     @Operation(summary = "delete product by Id")
     @DeleteMapping("/deleteById/{id}")
     public String deleteById(@PathVariable("id") Long id) {
