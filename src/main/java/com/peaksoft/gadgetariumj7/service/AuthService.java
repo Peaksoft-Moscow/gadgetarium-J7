@@ -3,6 +3,7 @@ package com.peaksoft.gadgetariumj7.service;
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.model.entities.Basket;
+import com.peaksoft.gadgetariumj7.repository.BasketRepository;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -45,6 +46,7 @@ public class AuthService {
     LoginMapper loginMapper;
     PasswordEncoder passwordEncoder;
     JavaMailSender javaMailSender;
+    BasketRepository basketRepository;
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
@@ -53,6 +55,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         Basket basket = new Basket();
         user.setBasket(basket);
+        basketRepository.save(basket);
         basket.setUser(user);
         userRepository.save(user);
         return authMapper.mapToUserResponse(user);
