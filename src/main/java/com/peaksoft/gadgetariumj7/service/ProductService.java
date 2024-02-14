@@ -14,10 +14,8 @@ import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.repository.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import javax.naming.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,13 +90,12 @@ public class ProductService {
     }
 
     public List<ProductResponse> getFilteredProduct(
-            @Param("brand")List<String> brands,
-            @Param("price")List<Integer> prices,
-            @Param("color")List<String> colors,
-            @Param("memory") List<String> memories,
-            @Param("operationMemory") List<String> operationMemory){
-          List<Product> attribute = productRepository.productFilter(brands,prices,colors,memories,operationMemory);
+            List<String> brands,
+            List<Integer> prices,
+            List<String> colors,
+            List<String> memories,
+            List<String> operationMemory) {
+        List<Product> attribute = productRepository.productFilter(brands, prices, colors, memories, operationMemory);
         return attribute.stream().map(productMapper::mapToResponse).toList();
     }
-
 }

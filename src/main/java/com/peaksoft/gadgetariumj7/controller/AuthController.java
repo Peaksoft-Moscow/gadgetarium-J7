@@ -4,7 +4,6 @@ import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
 import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
-import com.peaksoft.gadgetariumj7.repository.UserRepository;
 import com.peaksoft.gadgetariumj7.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
