@@ -3,6 +3,7 @@ package com.peaksoft.gadgetariumj7.service;
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.exception.NotFoundExcepption;
 import com.peaksoft.gadgetariumj7.model.entities.Basket;
+import com.peaksoft.gadgetariumj7.repository.BasketRepository;
 import com.peaksoft.gadgetariumj7.security.jwt.JwtUtil;
 import com.peaksoft.gadgetariumj7.mapper.AuthMapper;
 import com.peaksoft.gadgetariumj7.mapper.LoginMapper;
@@ -45,6 +46,7 @@ public class AuthService {
     LoginMapper loginMapper;
     PasswordEncoder passwordEncoder;
     JavaMailSender javaMailSender;
+    BasketRepository basketRepository;
 
     public AuthResponse save(AuthRequest request) {
         User user = authMapper.mapToEntity(request);
@@ -53,6 +55,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         Basket basket = new Basket();
         user.setBasket(basket);
+        basketRepository.save(basket);
         basket.setUser(user);
         userRepository.save(user);
         return authMapper.mapToUserResponse(user);
@@ -83,8 +86,8 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new NotFoundExcepption("User with: "+request.getEmail()+" not found !"));
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())){
+                .orElseThrow(() -> new NotFoundExcepption("User with: " + request.getEmail() + " not found !"));
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new IncorrectCodeException("The password is incorrect !");
         }
         manager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -93,7 +96,7 @@ public class AuthService {
     }
 
     public void sendSetPasswordEmail(String email) throws MessagingException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: "+email+" not found !"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: " + email + " not found !"));
         String strCode = String.valueOf(user.getResetCode());
         userRepository.save(user);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -105,7 +108,7 @@ public class AuthService {
     }
 
     public String forgotPassword(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: "+email+" not found !"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundExcepption("User with: " + email + " not found !"));
         Random random = new Random();
         Long resetCod = random.nextLong(10000000);
         user.setResetCode(String.valueOf(resetCod));
@@ -113,13 +116,13 @@ public class AuthService {
         try {
             sendSetPasswordEmail(email);
         } catch (MessagingException e) {
-            throw new NotFoundExcepption("User with: "+email+" not found !");
+            throw new NotFoundExcepption("User with: " + email + " not found !");
         }
         return "Please check your email to set new password to your account";
     }
 
     public String setPassword(String email, String resetCode, String newPassword, String confirmPassword) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User with: "+email+" not found !"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User with: " + email + " not found !"));
         if (user.getResetCode().equals(resetCode)) {
             if (newPassword.equals(confirmPassword)) {
                 user.setPassword(passwordEncoder.encode(newPassword));
