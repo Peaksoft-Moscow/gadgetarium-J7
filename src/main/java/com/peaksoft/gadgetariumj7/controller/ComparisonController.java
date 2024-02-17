@@ -1,7 +1,7 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
+import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.service.ComparisonService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +20,15 @@ public class ComparisonController {
 
     ComparisonService comparisonService;
 
+
     @PostMapping("/{id}")
     public ProductResponse addComparison(@PathVariable("id") Long productId, Principal principal) {
         return comparisonService.addToComparison(productId, principal);
     }
 
-    @GetMapping("/product/{id}")
-    public List<ProductResponse> getProductByUserId(@PathVariable Long id){
-        return comparisonService.getProductId(id);
+    @GetMapping()
+    public List<ProductResponse> getProductByUserId(Principal principal) {
+        return comparisonService.getMyComparisonProduct(principal);
     }
 
     @GetMapping("/smartphones")
@@ -36,12 +37,27 @@ public class ComparisonController {
     }
 
     @GetMapping("/head")
-    public List<ProductResponse> getHeadphones(){
+    public List<ProductResponse> getHeadphones() {
         return comparisonService.getHeadphones();
     }
 
     @GetMapping("/laptops")
-    public List<ProductResponse> getLaptops(){
+    public List<ProductResponse> getLaptops() {
         return comparisonService.getLaptops();
     }
+
+//    @DeleteMapping("/{id}")
+//    public String deleteByProducts(@PathVariable("id") Long id, Principal principal) {
+//        comparisonService.deleteProducts(principal);
+//        return "User with id:" + id + " successfully delete";
+//    }
+
+//    @GetMapping("/product/{id}")
+//    public List<ProductResponse> getProductByUserId(@PathVariable Long id){
+//        return comparisonService.getProductId(id);
+//    }
+//    @GetMapping()
+//    public List<ProductResponse> getProductByUserId(Principal principal){
+//        return comparisonService.getMyComparisonProduct(principal);
+//    }
 }

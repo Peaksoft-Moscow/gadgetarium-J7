@@ -63,7 +63,7 @@ public class User implements UserDetails {
     List<OrderHistory> orderHistories;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "productComparison",
+    @JoinTable(name = "product_Comparison",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     List<Product> productComparison;
