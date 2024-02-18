@@ -4,7 +4,9 @@ import com.peaksoft.gadgetariumj7.model.dto.AuthRequest;
 import com.peaksoft.gadgetariumj7.model.dto.AuthResponse;
 import com.peaksoft.gadgetariumj7.model.dto.LoginRequest;
 import com.peaksoft.gadgetariumj7.model.dto.LoginResponse;
+import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.service.AuthService;;
+import com.peaksoft.gadgetariumj7.service.S3Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,7 +19,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
