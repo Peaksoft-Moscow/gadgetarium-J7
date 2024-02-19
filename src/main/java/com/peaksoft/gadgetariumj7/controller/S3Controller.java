@@ -1,8 +1,6 @@
 package com.peaksoft.gadgetariumj7.controller;
 
-import com.amazonaws.HttpMethod;
 import com.peaksoft.gadgetariumj7.service.S3Service;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
@@ -10,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/file")
