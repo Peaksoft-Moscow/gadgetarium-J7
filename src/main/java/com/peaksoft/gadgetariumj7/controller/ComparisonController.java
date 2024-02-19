@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 @RestController
@@ -46,18 +47,8 @@ public class ComparisonController {
         return comparisonService.getLaptops();
     }
 
-//    @DeleteMapping("/{id}")
-//    public String deleteByProducts(@PathVariable("id") Long id, Principal principal) {
-//        comparisonService.deleteProducts(principal);
-//        return "User with id:" + id + " successfully delete";
-//    }
-
-//    @GetMapping("/product/{id}")
-//    public List<ProductResponse> getProductByUserId(@PathVariable Long id){
-//        return comparisonService.getProductId(id);
-//    }
-//    @GetMapping()
-//    public List<ProductResponse> getProductByUserId(Principal principal){
-//        return comparisonService.getMyComparisonProduct(principal);
-//    }
+    @GetMapping("/distinct")
+    public Stream<String> getDistinct(){
+        return comparisonService.getDistinctProducts();
+    }
 }
