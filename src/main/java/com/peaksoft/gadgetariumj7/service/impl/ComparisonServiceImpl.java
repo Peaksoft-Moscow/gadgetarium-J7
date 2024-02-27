@@ -2,6 +2,7 @@ package com.peaksoft.gadgetariumj7.service.impl;
 
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
+import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.model.entities.User;
 import com.peaksoft.gadgetariumj7.model.enums.CategoryType;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
@@ -26,9 +27,16 @@ public class ComparisonServiceImpl implements ComparisonService {
     ProductMapper mapper;
 
     @Override
-    public ResponseEntity<String> addComparison(Long id, Principal principal) {
-        return null;
-
+    public ProductResponse addComparison(Long id, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new RuntimeException("not found User :" + principal.getName()));
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("not found product id" + id));
+        List<Product> products = user.getProductComparison();
+        products.add(product);
+        user.setProductComparison(products);
+        userRepository.save(user);
+        return mapper.mapToResponse(product);
     }
 
     @Override

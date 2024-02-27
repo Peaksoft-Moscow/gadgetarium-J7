@@ -88,4 +88,7 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     SubCategory subCategory;
+
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productComparison")
+    List<User> users;
 }

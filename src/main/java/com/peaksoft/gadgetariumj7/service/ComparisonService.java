@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ComparisonService {
 
-    ResponseEntity<String> addComparison(Long id, Principal principal);
+    ProductResponse addComparison(Long id, Principal principal);
 
     List<ProductResponse> getComparisonByCategory(CategoryType categoryType, Principal principal);
 

@@ -58,13 +58,19 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     List<Order> orders;
-    @OneToOne(cascade = CascadeType .ALL, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     Favorites favorites;
 
     @OneToMany(mappedBy = "user")
     List<OrderHistory> orderHistories;
     @OneToOne(mappedBy = "user")
     Basket basket;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_comparison",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    List<Product> productComparison;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
