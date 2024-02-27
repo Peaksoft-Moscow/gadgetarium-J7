@@ -1,4 +1,4 @@
-package com.peaksoft.gadgetariumj7.service;
+package com.peaksoft.gadgetariumj7.service.impl;
 
 import com.peaksoft.gadgetariumj7.mapper.ProductMapper;
 import com.peaksoft.gadgetariumj7.model.dto.MainPageResponse;

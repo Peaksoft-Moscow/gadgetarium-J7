@@ -4,7 +4,7 @@ import com.peaksoft.gadgetariumj7.model.dto.BrandRequest;
 import com.peaksoft.gadgetariumj7.model.dto.BrandResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductRequest;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.service.ProductService;
+import com.peaksoft.gadgetariumj7.service.impl.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;

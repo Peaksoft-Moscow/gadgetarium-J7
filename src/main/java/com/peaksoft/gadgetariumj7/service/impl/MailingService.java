@@ -1,4 +1,4 @@
-package com.peaksoft.gadgetariumj7.service;
+package com.peaksoft.gadgetariumj7.service.impl;
 
 import com.peaksoft.gadgetariumj7.exception.IncorrectCodeException;
 import com.peaksoft.gadgetariumj7.mapper.MailingMapper;

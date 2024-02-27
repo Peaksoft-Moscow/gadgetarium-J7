@@ -2,13 +2,12 @@ package com.peaksoft.gadgetariumj7.controller;
 
 import com.peaksoft.gadgetariumj7.model.dto.MailingRequest;
 import com.peaksoft.gadgetariumj7.model.dto.MailingResponse;
-import com.peaksoft.gadgetariumj7.service.MailingService;
+import com.peaksoft.gadgetariumj7.service.impl.MailingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

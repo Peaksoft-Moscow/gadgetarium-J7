@@ -2,8 +2,7 @@ package com.peaksoft.gadgetariumj7.controller;
 
 import com.peaksoft.gadgetariumj7.model.dto.FavoritesListResponse;
 import com.peaksoft.gadgetariumj7.model.dto.FavoritesResponse;
-import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.service.FavoriteService;
+import com.peaksoft.gadgetariumj7.service.impl.FavoriteService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

@@ -2,7 +2,7 @@ package com.peaksoft.gadgetariumj7.controller;
 
 import com.peaksoft.gadgetariumj7.model.dto.MainPageResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.service.MainPageService;
+import com.peaksoft.gadgetariumj7.service.impl.MainPageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
