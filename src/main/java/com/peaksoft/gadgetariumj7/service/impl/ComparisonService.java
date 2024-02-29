@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,7 +46,7 @@ public class ComparisonService {
         return productMapper.mapToResponse(product);
     }
 
-    public List<ProductResponse> getMyProductComparison(Principal principal){
+    public List<ProductResponse> getMyProductComparison(Principal principal) {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new RuntimeException("not found User :" + principal.getName()));
         List<Product> products = comparisonRepository.getProductComparisonByUserId(user.getId());
@@ -54,16 +56,11 @@ public class ComparisonService {
     public List<ComparisonResponse> getComparisonByCategory(CategoryType categoryType, Principal principal) {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new RuntimeException("not found User :" + principal.getName()));
-        switch (categoryType) {
-            case SMARTPHONES:
-                return comparisonMapper.mapToResponse(comparisonRepository.smartphones(user.getId()));
-            case LAPTOPS:
-                return comparisonMapper.mapToResponse(comparisonRepository.laptops(user.getId()));
-            case HEADPHONES:
-                return comparisonMapper.mapToResponse(comparisonRepository.headphones(user.getId()));
-            default:
-                return Collections.emptyList();
-        }
+        Map<CategoryType, List<ComparisonResponse>> categoryMap = new HashMap<>();
+        categoryMap.put(CategoryType.SMARTPHONES, comparisonMapper.mapToResponse(comparisonRepository.smartphones(user.getId())));
+        categoryMap.put(CategoryType.LAPTOPS, comparisonMapper.mapToResponse(comparisonRepository.laptops(user.getId())));
+        categoryMap.put(CategoryType.HEADPHONES, comparisonMapper.mapToResponse(comparisonRepository.headphones(user.getId())));
+        return categoryMap.getOrDefault(categoryType, null);
     }
 
     public void deleteProducts(Principal principal) {
@@ -75,7 +72,7 @@ public class ComparisonService {
 
     public ProductResponse findById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("not found id :" + id));
+                .orElseThrow(() -> new RuntimeException("not found id :" + id));
         return productMapper.mapToResponse(product);
     }
 
