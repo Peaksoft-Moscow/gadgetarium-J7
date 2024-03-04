@@ -16,5 +16,5 @@ public class ComparisonRequest {
     OperationSystem operationSystem;
     Memory memory;
     int wight;
-    int simCard;
+    String simCard;
 }

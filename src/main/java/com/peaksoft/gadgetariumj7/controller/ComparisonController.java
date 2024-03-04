@@ -2,7 +2,7 @@ package com.peaksoft.gadgetariumj7.controller;
 
 import com.peaksoft.gadgetariumj7.model.dto.ComparisonResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
-import com.peaksoft.gadgetariumj7.model.enums.CategoryType;
+import com.peaksoft.gadgetariumj7.model.enums.Category;
 import com.peaksoft.gadgetariumj7.service.impl.ComparisonService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api/comparison")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ComparisonController {
 
@@ -28,8 +28,8 @@ public class ComparisonController {
     }
 
     @GetMapping()
-    public List<ComparisonResponse> getComparisonByCategory(@RequestParam CategoryType categoryType, Principal principal) {
-        return comparisonService.getComparisonByCategory(categoryType, principal);
+    public List<ComparisonResponse> getComparisonByCategory(@RequestParam Category category, Principal principal) {
+        return comparisonService.getComparisonByCategory(category, principal);
     }
 
     @DeleteMapping
@@ -39,8 +39,8 @@ public class ComparisonController {
     }
 
     @GetMapping("/unique")
-    public List<ComparisonResponse> uniqProducts(@RequestParam CategoryType categoryType, Principal principal) {
-        return comparisonService.getComparisonByCategory(categoryType, principal);
+    public List<ComparisonResponse> uniqProducts(@RequestParam Category category, Principal principal) {
+        return comparisonService.getComparisonByCategory(category, principal);
     }
 
     @GetMapping("/distinct")

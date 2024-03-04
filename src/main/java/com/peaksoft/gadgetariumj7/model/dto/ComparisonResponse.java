@@ -3,13 +3,14 @@ package com.peaksoft.gadgetariumj7.model.dto;
 import com.peaksoft.gadgetariumj7.model.enums.Color;
 import com.peaksoft.gadgetariumj7.model.enums.Memory;
 import com.peaksoft.gadgetariumj7.model.enums.OperationSystem;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ComparisonResponse {
 
     Long id;
@@ -19,5 +20,5 @@ public class ComparisonResponse {
     OperationSystem operationSystem;
     Memory memory;
     int wight;
-    int simCard;
+    String simCard;
 }

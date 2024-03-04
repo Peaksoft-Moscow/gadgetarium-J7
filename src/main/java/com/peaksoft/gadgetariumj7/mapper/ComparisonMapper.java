@@ -7,25 +7,24 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ComparisonMapper {
 
     public List<ComparisonResponse> mapToResponse(List<Product> productList) {
-        List<ComparisonResponse> responses = new ArrayList<>();
-        productList.forEach(product -> {
-            responses.add(new ComparisonResponse(
-                    product.getId(),
-                    product.getBrandOfProduct().getBrandName(),
-                    product.getScreen(),
-                    product.getColor(),
-                    product.getOperationSystem(),
-                    product.getMemory(),
-                    product.getWeight(),
-                    product.getSimCard()
-            ));
-        });
-        return responses;
+        return productList.stream()
+                .map(product -> new ComparisonResponse(
+                        product.getId(),
+                        product.getBrandOfProduct().getBrandName(),
+                        product.getScreen(),
+                        product.getColor(),
+                        product.getOperationSystem(),
+                        product.getMemory(),
+                        product.getWeight(),
+                        product.getSimCard()
+                ))
+                .collect(Collectors.toList());
     }
 }

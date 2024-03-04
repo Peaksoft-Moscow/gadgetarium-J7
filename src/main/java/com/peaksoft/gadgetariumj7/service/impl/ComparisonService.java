@@ -6,7 +6,7 @@ import com.peaksoft.gadgetariumj7.model.dto.ComparisonResponse;
 import com.peaksoft.gadgetariumj7.model.dto.ProductResponse;
 import com.peaksoft.gadgetariumj7.model.entities.Product;
 import com.peaksoft.gadgetariumj7.model.entities.User;
-import com.peaksoft.gadgetariumj7.model.enums.CategoryType;
+import com.peaksoft.gadgetariumj7.model.enums.Category;
 import com.peaksoft.gadgetariumj7.repository.ComparisonRepository;
 import com.peaksoft.gadgetariumj7.repository.ProductRepository;
 import com.peaksoft.gadgetariumj7.repository.UserRepository;
@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,20 +51,21 @@ public class ComparisonService {
         return getProductResponse(products);
     }
 
-    public List<ComparisonResponse> getComparisonByCategory(CategoryType categoryType, Principal principal) {
+    public List<ComparisonResponse> getComparisonByCategory(Category category, Principal principal) {
         User user = userRepository.findByEmail(principal.getName())
                 .orElseThrow(() -> new RuntimeException("not found User :" + principal.getName()));
-        Map<CategoryType, List<ComparisonResponse>> categoryMap = new HashMap<>();
-        categoryMap.put(CategoryType.SMARTPHONES, comparisonMapper.mapToResponse(comparisonRepository.smartphones(user.getId())));
-        categoryMap.put(CategoryType.LAPTOPS, comparisonMapper.mapToResponse(comparisonRepository.laptops(user.getId())));
-        categoryMap.put(CategoryType.HEADPHONES, comparisonMapper.mapToResponse(comparisonRepository.headphones(user.getId())));
-        return categoryMap.getOrDefault(categoryType, null);
+        return switch (category) {
+            case SMARTPHONES -> comparisonMapper.mapToResponse(comparisonRepository.Smartphones(user.getId()));
+            case LAPTOPS -> comparisonMapper.mapToResponse(comparisonRepository.Laptops(user.getId()));
+            case HEADPHONES -> comparisonMapper.mapToResponse(comparisonRepository.headPhones(user.getId()));
+            default -> Collections.emptyList();
+        };
     }
 
     public void deleteProducts(Principal principal) {
-        User user = userRepository.findByEmail(principal.getName()).get();
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new RuntimeException("not found User :" + principal.getName()));
         user.setProductComparison(null);
-        userRepository.save(user);
         userRepository.delete(user);
     }
 
@@ -86,5 +85,4 @@ public class ComparisonService {
                 .map(productMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
-
 }

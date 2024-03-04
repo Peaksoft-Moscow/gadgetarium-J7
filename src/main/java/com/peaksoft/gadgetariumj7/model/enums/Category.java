@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public enum CategoryType {
+public enum Category {
 
     SMARTPHONES,
     LAPTOPS,
